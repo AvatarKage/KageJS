@@ -1,0 +1,67 @@
+{
+  "files.exclude": {
+    "**/*.sqlite-shm": true,
+    "**/*.sqlite-wal": true,
+    "**/*.db-shm": true,
+    "**/*.db-wal": true
+  },
+  "material-icon-theme.folders.associations": {
+    "components": "react-components",
+    "pages": "react-components",
+    "graphics": "images"
+  },
+  "material-icon-theme.files.associations": {
+    "*.config.ts": "settings",
+    "*.config.js": "settings",
+    "*.type.ts": "Typescript-def",
+    "package-lock.json": "lock"
+  },
+  "material-icon-theme.folders.customClones": [
+    {
+      "name": "discord",
+      "base": "robot",
+      "color": "#5865F2",
+      "folderNames": ["discord"]
+    }
+  ],
+  "material-icon-theme.files.customClones": [
+    {
+      "name": "hooks",
+      "base": "controller",
+      "color": "#7e57c2",
+      "fileExtensions": ["hook.ts", "hook.js"]
+    }
+  ],
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "log.error",
+        "settings": {
+          "fontStyle": ""
+        }
+      }
+    ]
+  },
+  "logFileHighlighter.customPatterns": [
+    {
+      "pattern": "\\[INFO\\].*",
+      "highlightEntireLine": true,
+      "foreground": "#13a10e"
+    },
+    {
+      "pattern": "\\[WARN\\].*",
+      "highlightEntireLine": true,
+      "foreground": "#c19c00"
+    },
+    {
+      "pattern": "\\[ERROR\\].*",
+      "highlightEntireLine": true,
+      "foreground": "#c50f1f"
+    },
+    {
+      "pattern": "\\[DEBUG\\].*",
+      "highlightEntireLine": true,
+      "foreground": "#3a96dd"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Folders
+.vscode/*
+node_modules
+ssl/*
+
+# Files
+!.vscode/extensions.json
+!.vscode/settings.json
+package-lock.json
+
+# Extensions
+*.lnk
