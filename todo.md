@@ -79,6 +79,17 @@ DUMMY EXAMPLES, NOT REAL CODE OR IMPORTS, MANY WON'T EXIST
         shutdown,
         restart,
     } from "@kagejs/cli";
+
+
+    const word = "cat";
+
+    const def = word.define();
+
+    // OR
+
+    const wiki = new Wiki();
+
+    const defination = wiki.define("cat");
 ```
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
