@@ -1,7 +1,12 @@
-import Button from "./src/components/Button.js";
-import TextInput from "./src/components/TextInput.js";
+import cleanJSON from "./src/helpers/cleanJSON.js";
+
+Object.defineProperty(JSON, "clean", {
+    value: cleanJSON,
+    writable: true,
+    configurable: true,
+    enumerable: false
+});
 
 export {
-    Button,
-    TextInput
-}
+    //
+};
