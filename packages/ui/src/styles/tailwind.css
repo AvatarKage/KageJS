@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@source inline("bg-transparent");
+@source inline("border");
+@source inline("border-dashed");
+@source inline("border-transparent");
+@source inline("underline-offset-4");
+@source inline("{bg,border,text}-{neutral,primary,secondary,accent,info,success,warning,error}");
+@source inline("bg-{neutral,primary,secondary,accent,info,success,warning,error}/{10,20}");
+@source inline("{border,text}-{neutral,primary,secondary,accent,info,success,warning,error}{-content,/20}");
+@source inline("hover:{brightness-110,underline}");
+@source inline("hover:bg-{neutral,primary,secondary,accent,info,success,warning,error}");
+@source inline("hover:bg-{neutral,primary,secondary,accent,info,success,warning,error}/{10,20}");
+@source inline("hover:text-{neutral,primary,secondary,accent,info,success,warning,error}-content");
+
+@theme {
+    --color-base-100: #090b16;
+    --color-base-200: #111527;
+    --color-base-300: #1d233b;
+    --color-base-content: #eef2ff;
+
+    --color-primary: #00d4ff;
+    --color-primary-content: #00151c;
+
+    --color-secondary: #a78bfa;
+    --color-secondary-content: #160b30;
+
+    --color-accent: #ff4da6;
+    --color-accent-content: #240014;
+
+    --color-neutral: #36415c;
+    --color-neutral-content: #f1f5ff;
+
+    --color-info: #60a5fa;
+    --color-info-content: #07152e;
+
+    --color-success: #34f5a3;
+    --color-success-content: #052016;
+
+    --color-warning: #ffca57;
+    --color-warning-content: #261800;
+
+    --color-error: #ff5c7a;
+    --color-error-content: #2b0610;
+
+    --radius-selector: 16px;
+    --radius-field: 8px;
+    --radius-box: 12px;
+
+    --size-selector: 4px;
+    --size-field: 4px;
+
+    --border: 1px;
+    --depth: 0;
+    --noise: 0;
+}

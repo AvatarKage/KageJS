@@ -6,9 +6,7 @@
     "**/*.db-wal": true
   },
   "material-icon-theme.folders.associations": {
-    "components": "react-components",
-    "pages": "react-components",
-    "graphics": "images"
+    "native": "desktop"
   },
   "material-icon-theme.files.associations": {
     "*.config.ts": "settings",
