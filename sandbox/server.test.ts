@@ -1,6 +1,6 @@
-import { createExpressServer, createViteServer } from "../packages/server/index.js";
+import { Express, Vite } from "../packages/server/index.js";
 
-const server = createExpressServer({
+const server = new Express({
     port: 3000
 });
 
