@@ -1,12 +1,4 @@
-/* 
-————————————————————————————————————————————————————————————————
-Copyright (c) 2026 AvatarKage. Released under the MIT License.
-
-https://avatarka.ge/github
-———————————————————————————————————————————————————————————————— 
-*/
-
-import { DurationType } from "../types/duration.type.js";
+import { Duration } from "../types/duration.type.js";
 
 /**
  * Converts a duration string into milliseconds.
@@ -23,7 +15,7 @@ import { DurationType } from "../types/duration.type.js";
  * - "2h"  -> 7200000
  * - "7d"  -> 604800000
  */
-export default function parseDuration(input: DurationType): number {
+export default function parseDuration(input: Duration): number {
     const match = input.match(/^(\d+)(d|h|m|s)$/i);
 
     if (!match) {
