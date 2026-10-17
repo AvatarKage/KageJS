@@ -3,9 +3,11 @@ import "../packages/utilities/index.js";
 
 const jsonData = {
     name: null,
-    age: 0
+    age: 23
 };
 
-console.log(JSON.clean(jsonData));
+const age = jsonData.age
 
+console.log(JSON.clean(jsonData));
+console.log(age.pad(3));
 ```
