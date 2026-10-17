@@ -1,0 +1,463 @@
+import os from "node:os";
+import process from "node:process";
+import si from "systeminformation";
+
+type SettledValue<T> = PromiseSettledResult<T> | undefined;
+
+type TaskMap = Record<string, Promise<unknown>>;
+
+type ResultMap<T extends TaskMap> = {
+  [K in keyof T]: T[K] extends Promise<infer V>
+    ? V | null
+    : never;
+};
+
+function safe<T>(fn: () => T): T | null {
+  try {
+    return fn();
+  } catch {
+    return null;
+  }
+}
+
+function resolveResult<T>(
+  result: SettledValue<T>
+): T | null {
+  if (!result || result.status !== "fulfilled") {
+    return null;
+  }
+
+  return result.value;
+}
+
+async function collect<T extends TaskMap>(
+  tasks: T
+): Promise<ResultMap<T>> {
+  const keys = Object.keys(tasks) as (keyof T)[];
+
+  const results = await Promise.allSettled(
+    keys.map((key) => tasks[key])
+  );
+
+  const output: Record<string, unknown> = {};
+
+  keys.forEach((key, index) => {
+    output[String(key)] = resolveResult(results[index]);
+  });
+
+  return output as ResultMap<T>;
+}
+
+function serializeJSON(value: unknown): string {
+  return JSON.stringify(
+    value,
+    (_key, item) => {
+      if (typeof item === "bigint") {
+        return item.toString();
+      }
+
+      if (item instanceof Error) {
+        return {
+          name: item.name,
+          message: item.message,
+        };
+      }
+
+      return item;
+    },
+    2
+  );
+}
+
+export async function getOSInfo() {
+  const totalMemory = safe(() => os.totalmem()) ?? 0;
+  const freeMemory = safe(() => os.freemem()) ?? 0;
+
+  const cpus = safe(() => os.cpus()) ?? [];
+
+  const memoryUsed = Math.max(0, totalMemory - freeMemory);
+
+  const data = await collect({
+    system: Promise.resolve().then(() => si.system()),
+    bios: Promise.resolve().then(() => si.bios()),
+    baseboard: Promise.resolve().then(() => si.baseboard()),
+    chassis: Promise.resolve().then(() => si.chassis()),
+
+    cpu: Promise.resolve().then(() => si.cpu()),
+    cpuCurrentSpeed: Promise.resolve().then(
+      () => si.cpuCurrentSpeed()
+    ),
+    cpuTemperature: Promise.resolve().then(
+      () => si.cpuTemperature()
+    ),
+    currentLoad: Promise.resolve().then(
+      () => si.currentLoad()
+    ),
+    fullLoad: Promise.resolve().then(
+      () => si.currentLoad()
+    ),
+
+    memory: Promise.resolve().then(() => si.mem()),
+    memoryLayout: Promise.resolve().then(
+      () => si.memLayout()
+    ),
+
+    graphics: Promise.resolve().then(() => si.graphics()),
+
+    blockDevices: Promise.resolve().then(
+      () => si.blockDevices()
+    ),
+    diskLayout: Promise.resolve().then(
+      () => si.diskLayout()
+    ),
+    diskIO: Promise.resolve().then(() => si.disksIO()),
+    filesystemSize: Promise.resolve().then(
+      () => si.fsSize()
+    ),
+    filesystemStats: Promise.resolve().then(
+      () => si.fsStats()
+    ),
+
+    battery: Promise.resolve().then(() => si.battery()),
+
+    networkInterfaces: Promise.resolve().then(
+      () => si.networkInterfaces()
+    ),
+    networkStats: Promise.resolve().then(
+      () => si.networkStats()
+    ),
+    networkConnections: Promise.resolve().then(
+      () => si.networkConnections()
+    ),
+
+    wifiNetworks: Promise.resolve().then(
+      () => si.wifiNetworks()
+    ),
+    wifiConnections: Promise.resolve().then(
+      () => si.wifiConnections()
+    ),
+
+    bluetoothDevices: Promise.resolve().then(
+      () => si.bluetoothDevices()
+    ),
+    usbDevices: Promise.resolve().then(() => si.usb()),
+    audio: Promise.resolve().then(() => si.audio()),
+
+    processes: Promise.resolve().then(() => si.processes()),
+    users: Promise.resolve().then(() => si.users()),
+
+    time: Promise.resolve().then(() => si.time()),
+    osInfo: Promise.resolve().then(() => si.osInfo()),
+    versions: Promise.resolve().then(() => si.versions()),
+
+    // Some systeminformation versions expose this API;
+    // others may not. Check before calling it.
+    services: Promise.resolve().then(() => {
+      const api = si as unknown as {
+        services?: (names: string) => Promise<unknown>;
+      };
+
+      return typeof api.services === "function"
+        ? api.services("*")
+        : null;
+    }),
+  });
+
+  // ----------------------------------------------------------
+  // Process information
+  // ----------------------------------------------------------
+
+  const processInfo = {
+    pid: process.pid,
+    ppid: process.ppid,
+
+    uptime: process.uptime(),
+
+    execPath: process.execPath,
+    cwd: safe(() => process.cwd()),
+
+    argv: process.argv,
+    execArgv: process.execArgv,
+
+    title: process.title,
+
+    version: process.version,
+    versions: process.versions,
+
+    platform: process.platform,
+    arch: process.arch,
+
+    memoryUsage: process.memoryUsage(),
+    cpuUsage: process.cpuUsage(),
+
+    resourceUsage: safe(() => process.resourceUsage()),
+
+    features: process.features,
+  };
+
+  // ----------------------------------------------------------
+  // CPU
+  // ----------------------------------------------------------
+
+  const cpu = {
+    count: cpus.length,
+
+    availableParallelism: safe(
+      () => os.availableParallelism()
+    ),
+
+    arch: os.arch(),
+
+    model: cpus[0]?.model ?? null,
+
+    speed: cpus[0]?.speed ?? null,
+
+    cores: cpus,
+
+    loadavg: safe(() => os.loadavg()),
+
+    hardware: data.cpu,
+
+    currentSpeed: data.cpuCurrentSpeed,
+
+    temperature: data.cpuTemperature,
+
+    load: data.currentLoad,
+
+    fullLoad: data.fullLoad,
+  };
+
+  // ----------------------------------------------------------
+  // Memory
+  // ----------------------------------------------------------
+
+  const memory = {
+    total: totalMemory,
+    free: freeMemory,
+    used: memoryUsed,
+
+    usagePercent:
+      totalMemory > 0
+        ? (memoryUsed / totalMemory) * 100
+        : 0,
+
+    detailed: data.memory,
+
+    modules: data.memoryLayout,
+  };
+
+  // ----------------------------------------------------------
+  // GPU / DISPLAY
+  // ----------------------------------------------------------
+
+  const graphics = data.graphics as {
+    controllers?: unknown[];
+    displays?: unknown[];
+  } | null;
+
+  const gpu = {
+    devices: graphics?.controllers ?? [],
+
+    primary: graphics?.controllers?.[0] ?? null,
+
+    displays: graphics?.displays ?? [],
+  };
+
+  const display = {
+    monitors: graphics?.displays ?? [],
+
+    primary:
+      graphics?.displays?.find(
+        (item) =>
+          typeof item === "object" &&
+          item !== null &&
+          "main" in item &&
+          (item as { main?: boolean }).main === true
+      ) ?? null,
+  };
+
+  // ----------------------------------------------------------
+  // NETWORK
+  // ----------------------------------------------------------
+
+  const network = {
+    interfaces: safe(() => os.networkInterfaces()),
+
+    detailedInterfaces: data.networkInterfaces,
+
+    stats: data.networkStats,
+
+    connections: data.networkConnections,
+
+    wifi: {
+      networks: data.wifiNetworks,
+
+      connections: data.wifiConnections,
+    },
+  };
+
+  // ----------------------------------------------------------
+  // DISK
+  // ----------------------------------------------------------
+
+  const disk = {
+    devices: data.blockDevices,
+
+    layout: data.diskLayout,
+
+    io: data.diskIO,
+
+    filesystems: data.filesystemSize,
+
+    stats: data.filesystemStats,
+  };
+
+  // ----------------------------------------------------------
+  // BUILD FINAL OBJECT
+  // ----------------------------------------------------------
+
+  const info = {
+    // OS
+    platform: safe(() => os.platform()),
+    type: safe(() => os.type()),
+    release: safe(() => os.release()),
+    version: safe(() => os.version()),
+    arch: safe(() => os.arch()),
+    machine: safe(() => os.machine()),
+    hostname: safe(() => os.hostname()),
+    uptime: safe(() => os.uptime()),
+    endianness: safe(() => os.endianness()),
+
+    os: data.osInfo,
+
+    // Directories
+    homedir: safe(() => os.homedir()),
+    tmpdir: safe(() => os.tmpdir()),
+
+    directories: {
+      home: safe(() => os.homedir()),
+      temp: safe(() => os.tmpdir()),
+      cwd: safe(() => process.cwd()),
+      executable: process.execPath,
+    },
+
+    // User
+    user: {
+      current: safe(() => os.userInfo()),
+      loggedIn: data.users,
+    },
+
+    // System hardware
+    system: {
+      hardware: data.system,
+      bios: data.bios,
+      baseboard: data.baseboard,
+      chassis: data.chassis,
+    },
+
+    // Memory
+    memory,
+
+    // CPU
+    cpu,
+
+    // GPU
+    gpu,
+
+    // Displays
+    display,
+
+    // Storage
+    disk,
+
+    // Battery
+    battery: data.battery,
+
+    // Network
+    network,
+
+    // Bluetooth
+    bluetooth: {
+      devices: data.bluetoothDevices,
+    },
+
+    // USB
+    usb: {
+      devices: data.usbDevices,
+    },
+
+    // Audio
+    audio: {
+      devices: data.audio,
+    },
+
+    // Processes
+    processes: {
+      system: data.processes,
+      current: processInfo,
+    },
+
+    // Services
+    services: data.services,
+
+    // Runtime
+    runtime: {
+      node: process.version,
+      platform: process.platform,
+      arch: process.arch,
+      title: process.title,
+      versions: process.versions,
+      execPath: process.execPath,
+      pid: process.pid,
+      ppid: process.ppid,
+      uptime: process.uptime(),
+    },
+
+    // Time
+    time: {
+      system: data.time,
+      now: new Date().toISOString(),
+
+      timezone:
+        Intl.DateTimeFormat().resolvedOptions().timeZone,
+
+      timezoneOffset: new Date().getTimezoneOffset(),
+
+      uptime: safe(() => os.uptime()),
+    },
+
+    // Installed runtime / software versions
+    versions: data.versions,
+
+    // Constants
+    constants: safe(() => os.constants),
+
+    misc: {
+      devNull: safe(() => os.devNull),
+      EOL: safe(() => os.EOL),
+
+      priority: safe(() => os.getPriority()),
+
+      availableParallelism: safe(
+        () => os.availableParallelism()
+      ),
+    },
+  };
+
+  return info;
+}
+
+export async function dumpOS() {
+  const info = await getOSInfo();
+
+  console.log(serializeJSON(info));
+
+  return info;
+}
+
+export async function getOSInfoJSON() {
+  const info = await getOSInfo();
+
+  return serializeJSON(info);
+}
+
