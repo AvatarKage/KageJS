@@ -17,10 +17,8 @@ DUMMY EXAMPLES, NOT REAL CODE OR IMPORTS, MANY WON'T EXIST
 
     // @kagejs/utilities; General-purpose helper functions
     import {
-        formatNumber,
         formatDate,
         formatBytes,
-        capitalize,
         debounce,
         throttle,
         retry,
