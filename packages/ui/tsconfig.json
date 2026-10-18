@@ -7,7 +7,7 @@
     "sourceMap": false,
     "declaration": true,
     "declarationMap": false,
-    "declarationDir": "dist/src/types",
+    "declarationDir": "dist/types",
     "isolatedModules": true,
     "skipLibCheck": true,
     "rootDir": ".",
