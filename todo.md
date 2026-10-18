@@ -2,7 +2,7 @@
 
 DUMMY EXAMPLES, NOT REAL CODE OR IMPORTS, MANY WON'T EXIST
 
-```ts
+```tsx
     // @kagejs/core; Shared foundational services
     import {
         env,
@@ -90,6 +90,9 @@ DUMMY EXAMPLES, NOT REAL CODE OR IMPORTS, MANY WON'T EXIST
     const wiki = new Wiki();
 
     const defination = wiki.define("cat");
+
+    // This will generate a breadcrumb visual from that path
+    <BreadCrumb path={"root/folder/subfolder"} />
 ```
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
