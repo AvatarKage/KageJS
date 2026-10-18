@@ -29,9 +29,6 @@ const colors = satisfiesAll<Color>()(
 // Removes empty or null values
 console.log(JSON.clean(jsonData)); // { number: 1052 }
 
-// Adds zeros infront of the number to form a total length
-console.log(num.pad(3)); // 003
-
 // Returns a JSON of formatted numbers
 console.log(num.toFormat()); // { string: '1,052', short: '1.1K', long: '1.1 Thousand' }
 

@@ -35,17 +35,6 @@ declare global {
 
     interface Number {
         /**
-         * Pads a number with leading zeros to a fixed length.
-         *
-         * @param length - The total length of the resulting string.
-         * @returns The padded number as a string.
-         *
-         * @example
-         * (4).pad(5); // "00004"
-         */
-        pad(length: number): string;
-
-        /**
          * Formats a number into multiple readable representations.
          *
          * Produces:
