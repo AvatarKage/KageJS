@@ -14,6 +14,7 @@ type Step = {
 
 const steps: Step[] = [
     { name: "Preparing workspace...", cmd: "npm", args: ["run", "clean"] },
+    { name: "Compiling Typescript...", cmd: "tsc" },
     { name: "Minifying code...", cmd: "npm", args: ["run", "minify"] }
 ];
 
