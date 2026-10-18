@@ -16,13 +16,13 @@ QUICK CONFIG
 
 // Major version change that effects all the packages. This
 // should only be updated if a full rewrite is ever in order.
-const kagejsVersion = 2 // major
+const kagejsVersion = "2" // major
 
 // Minor versions should be updated anytime a new file such as a
 // class, component, helper, service, etc. is introduced. Patch
 // versions should be updated anytime a small tweak is made that
 // fixes an issue or doesn't introduce anything new.
-const utilitiesVersion = 0.0 // minor.patch
+const utilitiesVersion = "0.0" // minor.patch
 
 /* 
 ————————————————————————————————————————————————————————————————
