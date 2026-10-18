@@ -1,5 +1,5 @@
-/*
- * Normalizes Unicode characters, removes diacritics and special characters,
+/**
+ * Normalizes characters, removes diacritics and special characters,
  * converts text to lowercase, and replaces whitespace with hyphens.
  *
  * @param text - The string to convert into a slug.
