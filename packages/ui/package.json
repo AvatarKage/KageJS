@@ -14,6 +14,10 @@
   ],
   "author": "AvatarKage",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AvatarKage/KageJS.git"
+  },
   "type": "module",
   "main": "./dist/index.ts",
   "types": "./dist/types/index.d.ts",
