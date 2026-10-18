@@ -41,7 +41,7 @@ export const config = {
 
     packages: {
         utilities: {
-            name: `${name} Utilities`,
+            name: "@kagejs/utilities",
             version: `${kagejsVersion}.${utilitiesVersion}`,
             description: "Includes various common extensions and helpers for the KageJS ecosystem.",
             keywords: [

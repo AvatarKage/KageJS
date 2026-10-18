@@ -10,12 +10,12 @@
     "dev": "vite",
     "sandbox": "tsx sandbox/$npm_config_name.test.ts",
     "backup": "tsx dev/backup.ts",
-    "build": "cd packages && tsx ../../dev/node/buildPackages.mts && cd ../../",
+    "build:utilities": "cd packages/utilities && tsx ../../dev/node/buildPackages.mts && cd ../../",
     "clean": "rimraf dist",
     "clean:post": "rimraf dist/dev && rimraf dist/sandbox && rimraf dist/packages && rimraf dist/vite.config.js",
     "sync": "tsx dev/syncConfig.ts",
     "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of KageJS. Copyright (c) 2026 AvatarKage. Released under the MIT license. */\" --outdir=dist --allow-overwrite",
-    "publish:utilities": "cd packages/utilities && npm publish && cd ../../"
+    "publish:utilities": "npm run build:utilities && cd packages/utilities && npm publish && cd ../../"
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",

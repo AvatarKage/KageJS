@@ -1,5 +1,5 @@
 {
-  "name": "KageJS Utilities",
+  "name": "@kagejs/utilities",
   "version": "2.0",
   "description": "Includes various common extensions and helpers for the KageJS ecosystem.",
   "keywords": [
@@ -15,14 +15,17 @@
   "author": "AvatarKage",
   "license": "MIT",
   "type": "module",
-  "main": "index.ts",
-  "types": "src/types/index.d.ts",
+  "main": "./dist/index.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/types/index.d.ts"
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/index.ts"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rimraf dist",
     "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of KageJS. Copyright (c) 2026 AvatarKage. Released under the MIT license. */\" --outdir=dist --allow-overwrite"

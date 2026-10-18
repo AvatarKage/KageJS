@@ -18,10 +18,6 @@
       "types": "./dist/types/index.d.ts"
     }
   },
-  "scripts": {
-    "clean": "rimraf dist",
-    "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of My App. Copyright (c) 2026 Example, LLC. All Rights Reserved. */\" --outdir=dist --allow-overwrite"
-  },
   "dependencies": {},
   "devDependencies": {}
 }
