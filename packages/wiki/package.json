@@ -1,0 +1,27 @@
+{
+  "name": "sonarUI",
+  "version": "0.1.0-dev-build-17dd92c",
+  "description": "A React component library using Tailwind CSS",
+  "keywords": [
+    "ui",
+    "react",
+    "tailwind"
+  ],
+  "author": "AvatarKage",
+  "license": "MIT",
+  "type": "module",
+  "main": "index.ts",
+  "types": "src/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of My App. Copyright (c) 2026 Example, LLC. All Rights Reserved. */\" --outdir=dist --allow-overwrite"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
