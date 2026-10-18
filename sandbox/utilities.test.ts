@@ -26,7 +26,7 @@ const colors = satisfiesAll<Color>()(
 );
 
 // Removes empty or null values
-console.log(JSON.clean(jsonData)); // { numbe: 1052 }
+console.log(JSON.clean(jsonData)); // { number: 1052 }
 
 // Adds zeros infront of the number to form a total length
 console.log(num.pad(3)); // 003
