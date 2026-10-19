@@ -2,7 +2,9 @@
   "name": "KageJS",
   "version": "2.0.0",
   "description": "Ecosystem",
-  "keywords": ["kagejs"],
+  "keywords": [
+    "kagejs"
+  ],
   "author": "AvatarKage",
   "license": "MIT",
   "type": "module",
@@ -19,6 +21,7 @@
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",
+    "@kagejs/utilities": "^2.0.2",
     "@monaco-editor/react": "^4.7.0",
     "@sapphire/stopwatch": "^1.5.4",
     "@tailwindcss/vite": "^4.3.0",

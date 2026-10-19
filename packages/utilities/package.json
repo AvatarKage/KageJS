@@ -19,12 +19,12 @@
     "url": "git+https://github.com/AvatarKage/KageJS.git"
   },
   "type": "module",
-  "main": "./dist/index.ts",
+  "main": "./dist/src/index.ts",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "default": "./dist/index.ts"
+      "default": "./dist/src/index.ts",
+      "types": "./dist/types/index.d.ts"
     }
   },
   "files": [
