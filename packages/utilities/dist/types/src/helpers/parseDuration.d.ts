@@ -1,4 +1,4 @@
-import { Duration } from "../types/duration.type.js";
+import { Duration } from "../../types/duration.type.js";
 /**
  * Converts a duration string into milliseconds.
  *

@@ -22,7 +22,7 @@ const kagejsVersion = "2" // major
 // class, component, helper, service, etc. is introduced. Patch
 // versions should be updated anytime a small tweak is made that
 // fixes an issue or doesn't introduce anything new.
-const utilitiesVersion = "0.3" // minor.patch
+const utilitiesVersion = "0.4" // minor.patch
 
 /* 
 ————————————————————————————————————————————————————————————————
