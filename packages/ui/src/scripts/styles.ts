@@ -6,7 +6,7 @@ import type {
     Shape, 
     Size, 
     Variant
-} from "../types/common.type.js";
+} from "../../types/common.type.js";
 
 export function getColorVariantStyles(
     color: Color,

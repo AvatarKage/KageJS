@@ -11,7 +11,7 @@ import type {
     HozPos,
     Pos,
     Interaction
-} from "../types/common.type.js";
+} from "../../types/common.type.js";
 
 import {
     activeRingStyles,

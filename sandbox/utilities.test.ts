@@ -4,12 +4,15 @@
 // import "../packages/utilities/index.js";
 
 import { 
-    parseDuration, 
-    satisfiesAll,
-    slugify,
     Logger
 } from "../packages/utilities/index.js";
 
+import { 
+    parseDuration, 
+    satisfiesAll,
+    slugify,
+} from "@kagejs/utilities";
+/*
 const log = new Logger({
     debugMode: false, // If debug true, display and save all logs, else only errors
     userNerdFonts: true,
@@ -82,7 +85,7 @@ log.warn("High memory usage.");
 log.error("Unexpected error.");
 log.success("Initialization complete.");
 log.temp("Temporary information.");
-
+*/
 
 
 

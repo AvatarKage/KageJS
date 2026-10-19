@@ -10,7 +10,7 @@ import type {
     Aspect,
     HozPos,
     Pos
-} from "../types/common.type.js";
+} from "../../types/common.type.js";
 
 import {
     activeRingStyles,
