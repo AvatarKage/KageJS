@@ -274,3 +274,5 @@ page.addList([
 
 const html = page.render();
 ```
+
+maybe add a timer to the logger so there can be a start and end or smth
