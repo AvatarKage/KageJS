@@ -12,12 +12,14 @@ import {
 
     parseDuration, 
     satisfiesAll,
-    slugify
+    slugify,
+
+    type LoggerInstance
 } from "../packages/utilities/index.js";
 
 type Color = "red" | "green" | "blue";
 
-const log = new Logger({
+export const log: LoggerInstance = new Logger({
     debugMode: true,
     nerdFonts: true,
     path: "./logs"

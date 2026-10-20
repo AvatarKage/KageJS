@@ -13,12 +13,14 @@ import {
 
     parseDuration, 
     satisfiesAll,
-    slugify
+    slugify,
+
+    type LoggerInstance
 } from "@kagejs/utilities";
 
 type Color = "red" | "green" | "blue";
 
-const log = new Logger({
+export const log: LoggerInstance = new Logger({
     debugMode: true,
     nerdFonts: true,
     path: "./logs"

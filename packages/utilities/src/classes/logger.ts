@@ -159,23 +159,6 @@ export type LoggerScopeName = keyof typeof scopes;
 
 export type LoggerScopes = Record<LoggerScopeName, LogScope>;
 
-/**
- * Logger instance providing scoped, severity-based logging.
- *
- * Supports console output, file persistence, temporary messages,
- * silent messages, and automatic log cleanup.
- *
- * @example
- * const logger = new Logger({
- *     path: "./logs",
- *     nerdFonts: true,
- * });
- *
- * logger("Hello world");
- * logger.info("Application initialized");
- * logger.server.success("Server started");
- * logger.db.error("Connection failed");
- */
 export type LoggerInstance = LogScope &
     LoggerScopes & {
         info: LogMethod;
@@ -723,7 +706,29 @@ class Logger {
     }
 }
 
-const LoggerExport = Logger as unknown as LoggerConstructor;
+/**
+ * Creates a configurable logger instance.
+ *
+ * Supports scoped logging, severity levels, console output,
+ * file persistence, temporary messages, and silent messages.
+ *
+ * @param options - Optional logger configuration.
+ *
+ * @example
+ * export const log: LoggerInstance = new Logger({
+ *     path: "./logs",
+ *     nerdFonts: true,
+ *     debugMode: true,
+ * });
+ *
+ * log("Application initialized");
+ * log.success("Server started");
+ */
+export const LoggerExport: {
+    new (options?: LoggerOptions): LoggerInstance;
+} = Logger as unknown as {
+    new (options?: LoggerOptions): LoggerInstance;
+};
 
 export { LoggerExport as Logger };
 export default LoggerExport;
