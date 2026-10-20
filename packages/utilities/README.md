@@ -5,17 +5,28 @@
 // import "@kagejs/utilities";
 
 import { 
+    AdvancedError,
+    Logger,
+
+    assert,
+
     parseDuration, 
     satisfiesAll,
     slugify
 } from "@kagejs/utilities";
 
-const jsonData = {
-    string: null,
-    number: 1052
-};
+const log = new Logger({
+    debugMode: true,
+    nerdFonts: true,
+    path: "logs"
+});
 
-const num = jsonData.number
+const jsonData = {
+    string: "string",
+    number: 1052,
+    null: null,
+    mightBeNull: null
+};
 
 type Color = "red" | "green" | "blue";
 
@@ -27,14 +38,70 @@ const colors = satisfiesAll<Color>()(
 );
 
 // Removes empty or null values
-console.log(JSON.clean(jsonData)); // { number: 1052 }
+log(JSON.clean(jsonData)); // { number: 1052 }
 
 // Returns a JSON of formatted numbers
-console.log(num.toFormat()); // { string: '1,052', short: '1.1K', long: '1.1 Thousand' }
+log(jsonData.number.toFormat()); // { string: '1,052', short: '1.1K', long: '1.1 Thousand' }
 
 // Converts a duration string into milliseconds.
-console.log(parseDuration("30s")); // 30000
+log(parseDuration("30s")); // 30000
 
 // Converts strings into compatible slugs
-console.log(slugify("I am a developer!")); // i-am-a-developer
+log(slugify("I am a developer!")); // i-am-a-developer
+
+// Assert checks
+try {
+    assert(jsonData.number).isString();
+    assert(jsonData.number).isNumber();
+
+    for (const value of [
+        jsonData.null, 
+        jsonData.mightBeNull
+    ]) {
+        assert(value).isNull();
+    }
+} catch (error) {
+    log(error); // REPLACE WITH LOGGER
+}
+
+// Extends Error to provide a better debugging experience
+try {
+    throw new AdvancedError(500, {
+        message: "An error occurred while fetching account",
+        details: {
+            query: "SELECT * FROM accounts",
+            userId: "123"
+        }
+    });
+} catch (error) {
+    if (error instanceof AdvancedError) {
+        log(error); // REPLACE WITH LOGGER
+    } else {
+        log("Unknown error:", error); // REPLACE WITH LOGGER
+    }
+}
+
+// Showcases how the logs work; db can be replaced with many predefined scopes
+log("info");
+log.success("success");
+log.warn("warning");
+log.error("error");
+
+log.db("database info");
+log.db.success("database success");
+log.db.warn("database warning");
+log.db.error("database error");
+
+log.temp("never saved, only seen in console");
+log.warn.temp("never saved, only seen in console");
+log.db.temp("never saved, only seen in console");
+log.db.warn.temp("never saved, only seen in console");
+
+log.silent("only saved, never seen in console");
+log.warn.silent("only saved, never seen in console");
+log.db.silent("only saved, never seen in console");
+log.db.warn.silent("only saved, never seen in console");
+
+// Wait for pending writes, useful for calling before server shutdown
+await log.flush();
 ```
