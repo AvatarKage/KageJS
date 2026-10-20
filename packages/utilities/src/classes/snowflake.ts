@@ -1,11 +1,3 @@
-/* 
-————————————————————————————————————————————————————————————————
-Copyright (c) 2026 AvatarKage. Released under the MIT License.
-
-https://avatarka.ge/github
-———————————————————————————————————————————————————————————————— 
-*/
-
 /**
  * Snowflake ID Generator
  * 
@@ -15,7 +7,7 @@ https://avatarka.ge/github
  * - Sequence number
  * 
  * @example
- * const epoch = 1767225600000; // Custom epoch (Jan 1, 2026)
+ * const epoch = 1767225600000; // Custom epoch number or ISO string
  * const machineId = 0; // Machine identifier (0–1023)
  * 
  * const snowflake = new Snowflake(epoch, machineId);

@@ -7,6 +7,7 @@
 import { 
     AdvancedError,
     Logger,
+    Snowflake,
 
     assert,
 
@@ -49,6 +50,18 @@ await log.flush();
 
 // Clears logs 30 days or older
 await log.clearLogs(30);
+
+// Create a snowflake instance using eposh and machine number
+const snowflake = new Snowflake(
+    "2026-01-01T00:00:00.000Z", 
+    0
+);
+
+// Generate a snowflake
+const snowflakeId = snowflake.gen();
+
+log.snowflake(snowflakeId);
+log.snowflake(snowflake.decode(snowflakeId));
 
 // Ensures all values inside match the type, else throw TS error
 const colors = satisfiesAll<Color>()(

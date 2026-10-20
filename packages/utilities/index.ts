@@ -3,6 +3,7 @@ import "./src/extensions/number.js";
 
 import AdvancedError from "./src/classes/advancedError.js";
 import Logger from "./src/classes/logger.js";
+import Snowflake from "./src/classes/snowflake.js";
 
 import assert from "./src/functions/assert.js";
 
@@ -13,6 +14,7 @@ import slugify from "./src/helpers/slugify.js";
 export {
     AdvancedError,
     Logger,
+    Snowflake,
 
     assert,
 

@@ -1,11 +1,3 @@
-/* 
-————————————————————————————————————————————————————————————————
-Copyright (c) 2026 AvatarKage. Released under the MIT License.
-
-https://avatarka.ge/github
-———————————————————————————————————————————————————————————————— 
-*/
-
 import { DB } from "../types/database.type.js";
 
 export type IdentifierDefinition = {
