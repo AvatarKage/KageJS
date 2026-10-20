@@ -13,16 +13,95 @@ export type Severity =
 
 type Mode = "normal" | "temp" | "silent";
 
+/**
+ * Configuration options for the Logger instance.
+ *
+ * @example
+ * const logger = new Logger({
+ *     path: "./logs",
+ *     nerdFonts: true,
+ *     debugMode: true,
+ * });
+ */
 export type LoggerOptions = {
+    /**
+     * Directory where log files are stored.
+     *
+     * Logs are organized into scope-specific subdirectories.
+     *
+     * @default "logs"
+     *
+     * @example
+     * path: "./storage/logs"
+     */
     path?: string;
+
+    /**
+     * Enables Nerd Font icons in console output.
+     *
+     * Requires a terminal font that supports Nerd Fonts.
+     *
+     * @default false
+     */
     nerdFonts?: boolean;
+
+    /**
+     * Enables logging for all severity levels.
+     *
+     * When disabled, only error-level logs are emitted.
+     *
+     * @default true
+     */
     debugMode?: boolean;
 };
 
+/**
+ * Function used to output log messages.
+ *
+ * Accepts any number of arguments, including strings,
+ * numbers, objects, arrays, and errors.
+ *
+ * @param args - Values to log.
+ *
+ * @example
+ * logger("Application started");
+ *
+ * @example
+ * logger("User:", { id: 123, name: "John" });
+ */
 export type LogFunction = (...args: unknown[]) => void;
 
+/**
+ * A logging method supporting normal, temporary, and silent output.
+ *
+ * @example
+ * logger.info("Application started");
+ *
+ * @example
+ * logger.info.temp("Temporary message");
+ *
+ * @example
+ * logger.info.silent("Saved without console output");
+ */
 export type LogMethod = LogFunction & {
+    /**
+     * Outputs a temporary console message without saving it to disk.
+     *
+     * @param args - Values to log.
+     *
+     * @example
+     * logger.info.temp("Connecting...");
+     */
     temp: LogFunction;
+
+    /**
+     * Saves a message to disk without displaying it in the console.
+     *
+     * @param args - Values to log.
+     *
+     * @example
+     * logger.info.silent("Background task completed");
+     */
     silent: LogFunction;
 };
 
@@ -80,6 +159,23 @@ export type LoggerScopeName = keyof typeof scopes;
 
 export type LoggerScopes = Record<LoggerScopeName, LogScope>;
 
+/**
+ * Logger instance providing scoped, severity-based logging.
+ *
+ * Supports console output, file persistence, temporary messages,
+ * silent messages, and automatic log cleanup.
+ *
+ * @example
+ * const logger = new Logger({
+ *     path: "./logs",
+ *     nerdFonts: true,
+ * });
+ *
+ * logger("Hello world");
+ * logger.info("Application initialized");
+ * logger.server.success("Server started");
+ * logger.db.error("Connection failed");
+ */
 export type LoggerInstance = LogScope &
     LoggerScopes & {
         info: LogMethod;
@@ -156,7 +252,7 @@ class Logger {
             this.inspectNode = util.inspect;
         })();
 
-        const root = this.makeScope("global");
+        const root = this.makeScope("");
 
         return new Proxy(root as unknown as Logger, {
             get: (_target, key, receiver) => {
@@ -411,7 +507,7 @@ class Logger {
             const time = now.toFormat("HH:mm:ss");
 
             const label = [
-                scope === "global" ? "" : scope.toUpperCase(),
+                scope ? scope.toUpperCase() : "",
                 severity === "default" ? "" : severity.toUpperCase(),
                 mode === "normal" ? "" : mode.toUpperCase(),
             ]
@@ -505,10 +601,11 @@ class Logger {
             this.options.path ?? "logs",
         );
 
-        const safeScope =
-            scope.replace(/[^a-zA-Z0-9_-]/g, "_") || "global";
+        const safeScope = scope.replace(/[^a-zA-Z0-9_-]/g, "_");
 
-        const dir = this.pathNode.join(root, safeScope);
+        const dir = safeScope
+            ? this.pathNode.join(root, safeScope)
+            : root;
 
         await this.fsNode.mkdir(dir, { recursive: true });
 
@@ -526,19 +623,48 @@ class Logger {
         await Promise.allSettled([...this.pendingWrites]);
     }
 
+    /**
+     * @description Deletes log files dated on or before the specified number of days ago.
+     *
+     * Log files must follow the `YYYY-MM-DD.log` naming convention.
+     * Empty scope directories are automatically removed.
+     *
+     * @param days - Number of days before today to use as the inclusive deletion cutoff. Defaults to 30. Set to 0 to delete all dated log files, including today's.
+     *
+     * @returns A promise that resolves when cleanup is complete.
+     *
+     * @throws {RangeError} If days is negative or not finite.
+     *
+     * @example
+     * // Delete logs from 30 days ago and earlier.
+     * await logger.clearLogs();
+     *
+     * @example
+     * // Delete yesterday's logs and all older logs.
+     * await logger.clearLogs(1);
+     *
+     * @example
+     * // Delete logs from 7 days ago and earlier.
+     * await logger.clearLogs(7);
+     *
+     * @example
+     * // Delete all dated log files, including today's.
+     * await logger.clearLogs(0);
+     */
     async clearLogs(days = 30): Promise<void> {
+        if (!Number.isFinite(days) || days < 0) {
+            throw new RangeError("days must be nonnegative");
+        }
+
         await this.ready;
         await this.flush();
 
         if (!this.fsNode || !this.pathNode) return;
 
-        if (!Number.isFinite(days) || days < 0) {
-            throw new RangeError("days must be nonnegative");
-        }
+        const fs = this.fsNode;
+        const path = this.pathNode;
 
-        const root = this.pathNode.resolve(
-            this.options.path ?? "logs",
-        );
+        const root = path.resolve(this.options.path ?? "logs");
 
         const cutoff = DateTime.now()
             .minus({ days })
@@ -548,7 +674,7 @@ class Logger {
             let entries;
 
             try {
-                entries = await this.fsNode!.readdir(dir, {
+                entries = await fs.readdir(dir, {
                     withFileTypes: true,
                 });
             } catch (error) {
@@ -562,16 +688,33 @@ class Logger {
             }
 
             for (const entry of entries) {
-                const full = this.pathNode!.join(dir, entry.name);
+                const full = path.join(dir, entry.name);
 
                 if (entry.isDirectory()) {
                     await walk(full);
-                } else if (
-                    entry.isFile() &&
-                    /^\d{4}-\d{2}-\d{2}\.log$/.test(entry.name) &&
-                    entry.name.slice(0, 10) < cutoff
-                ) {
-                    await this.fsNode!.unlink(full);
+                    continue;
+                }
+
+                if (!entry.isFile()) continue;
+
+                const match = /^(\d{4}-\d{2}-\d{2})\.log$/.exec(
+                    entry.name,
+                );
+
+                if (!match) continue;
+
+                const fileDate = match[1];
+
+                if (fileDate <= cutoff) {
+                    await fs.unlink(full);
+                }
+            }
+
+            if (dir !== root) {
+                const remaining = await fs.readdir(dir);
+
+                if (remaining.length === 0) {
+                    await fs.rmdir(dir);
                 }
             }
         };
