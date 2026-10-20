@@ -20,7 +20,7 @@ type Color = "red" | "green" | "blue";
 const log = new Logger({
     debugMode: true,
     nerdFonts: true,
-    path: "logs"
+    path: "./logs"
 });
 
 // Showcases how the logs work; db can be replaced with many predefined scopes
@@ -46,6 +46,9 @@ log.db.warn.silent("only saved, never seen in console");
 
 // Wait for pending writes, useful for calling before server shutdown
 await log.flush();
+
+// Clears logs 30 days or older
+await log.clearLogs(30);
 
 // Ensures all values inside match the type, else throw TS error
 const colors = satisfiesAll<Color>()(
