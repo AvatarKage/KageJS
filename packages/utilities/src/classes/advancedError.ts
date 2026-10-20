@@ -1,22 +1,16 @@
-/* 
-————————————————————————————————————————————————————————————————
-Copyright (c) 2026 AvatarKage. Released under the MIT License.
-
-https://avatarka.ge/github
-———————————————————————————————————————————————————————————————— 
-*/
-
 type Props = {
-    code: number;
     message?: string;
     details?: unknown;
 };
 
 const DefaultErrorMessages: Record<number, string> = {
+    // Informational Responses
     100: "Continue",
     101: "Switching Protocols",
     102: "Processing",
     103: "Early Hints",
+
+    // Successful Responses
     200: "OK",
     201: "Created",
     202: "Accepted",
@@ -27,6 +21,8 @@ const DefaultErrorMessages: Record<number, string> = {
     207: "Multi-Status",
     208: "Already Reported",
     226: "IM Used",
+
+    // Redirection Responses
     300: "Multiple Choices",
     301: "Moved Permanently",
     302: "Found",
@@ -35,6 +31,8 @@ const DefaultErrorMessages: Record<number, string> = {
     305: "Use Proxy",
     307: "Temporary Redirect",
     308: "Permanent Redirect",
+
+    // Client Error Responses
     400: "Bad Request",
     401: "Unauthorized",
     402: "Payment Required",
@@ -64,6 +62,8 @@ const DefaultErrorMessages: Record<number, string> = {
     429: "Too Many Requests",
     431: "Request Header Fields Too Large",
     451: "Unavailable For Legal Reasons",
+
+    // Server Error Responses
     500: "Internal Server Error",
     501: "Not Implemented",
     502: "Bad Gateway",
@@ -75,7 +75,44 @@ const DefaultErrorMessages: Record<number, string> = {
     508: "Loop Detected",
     509: "Bandwidth Limit Exceeded",
     510: "Not Extended",
-    511: "Network Authentication Required"
+    511: "Network Authentication Required",
+
+    // Application Errors
+    1000: "Assertion Failed",
+    1052: "Shadow Detected",
+
+    // Database Errors
+    2000: "Database Error",
+    2001: "Database Connection Failed",
+    2002: "Database Connection Timeout",
+    2003: "Database Query Failed",
+    2004: "Database Transaction Failed",
+    2005: "Database Locked",
+    2006: "Database Out of Memory",
+    2007: "Database Is Read-Only",
+    2008: "Database Operation Interrupted",
+    2009: "Database I/O Error",
+    2010: "Database Corruption Detected",
+    2011: "Database Storage Full",
+    2012: "Unable to Open Database",
+    2013: "Database Lock Error",
+    2014: "Database Schema Changed",
+    2015: "Database Value Too Large",
+    2016: "Database Constraint Violation",
+    2017: "Database Type Mismatch",
+    2018: "Database API Misuse",
+    2019: "Database Authorization Denied",
+    2020: "Database Parameter Out of Range",
+    2021: "Invalid Database Format",
+    2022: "Database Warning",
+    2023: "Database Closed",
+    2024: "Database Schema Error",
+    2025: "Database Record Not Found",
+    2026: "Database Migration Failed",
+    2027: "Database Unique Constraint Violation",
+    2028: "Database Foreign Key Constraint Violation",
+    2029: "Database NOT NULL Constraint Violation",
+    2030: "Database CHECK Constraint Violation"
 };
 
 /**
@@ -92,21 +129,21 @@ const DefaultErrorMessages: Record<number, string> = {
  * 
  * @example
  * try {
- *     throw new AdvancedError({
- *         code: 500,
+ *     throw new AdvancedError(500, {
  *         message: "An error occurred while fetching account",
  *         details: {
  *             query: "SELECT * FROM accounts",
  *             userId: "123"
  *         }
  *     });
- * } catch (err) {
- *     if (err instanceof AdvancedError) {
- *         console.log("Code:", err.code);
- *         console.log("Message:", err.message);
- *         console.log("Details:", err.details);
+ * } catch (error) {
+ *     if (error instanceof AdvancedError) {
+ *         log.error("Id:", error.id);
+ *         log.error("Code:", error.code);
+ *         log.error("Message:", error.message);
+ *         log.error("Details:", error.details);
  *     } else {
- *         console.log("Unknown error:", err);
+ *         log.error("Unknown error:", error);
  *     }
  * }
  */
@@ -115,7 +152,7 @@ export default class AdvancedError extends Error {
     public readonly code: number;
     public readonly details?: unknown;
 
-    constructor({ code, message, details }: Props) {
+    constructor(code: number, { message, details }: Props = {}) {
         super(
             message ??
             DefaultErrorMessages[code] ??
@@ -126,6 +163,8 @@ export default class AdvancedError extends Error {
         this.name = this.constructor.name;
         this.code = code;
         this.details = details;
+
+        Object.setPrototypeOf(this, new.target.prototype);
 
         Error.captureStackTrace?.(this, this.constructor);
     }
