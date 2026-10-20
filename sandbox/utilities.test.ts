@@ -4,99 +4,27 @@
 // import "../packages/utilities/index.js";
 
 import { 
-    Logger
-} from "../packages/utilities/index.js";
+    AdvancedError,
+    Logger,
 
-import { 
+    assert,
+
     parseDuration, 
     satisfiesAll,
-    slugify,
-} from "@kagejs/utilities";
-/*
-const log = new Logger({
-    debugMode: false, // If debug true, display and save all logs, else only errors
-    userNerdFonts: true,
-    path: "logs/discord",
-    customEntries: { // Concept of adding custom entries
-        channel: "NERDFONT_ICON_HERE" // [CHANNEL] all caps if not nerdfonts
-    }
-});
-
-// Logger update removes the .save(), .tree(), and the "unknown" log categoy, and would 
-// make it compatible on client without user modifications while enforcing save to file 
-// on server end instead of making it optional. If the user doesn't want to save, either 
-// disable debugMode or use temp. It would also no longer require a log level.
-
-log.temp("This will never save and will display in white."); // will be marked as [TEMP] or temp icon if nerdfonts
-log.silent("This will save and will not display in console."); // will be marked as [SILENT] or temp icon if nerdfonts
-log.discord("This will save and display in white.");
-log.discord.temp("This will never save and will display in white."); // will be marked as [DISCORD TEMP] or relevant icon if nerdfonts
-log.discord.info("This will save and display in green.");
-log.discord.info.temp("This will never save and will display in green.");
-
-
+    slugify
+} from "../packages/utilities/index.js";
 
 const log = new Logger({
-    path: "logs/discord",
+    debugMode: true,
     nerdFonts: true,
-
-    categories: {
-        discord: "󰙯",
-        guild: "󰙯",
-        channel: "󰆍",
-        message: "󰍡",
-        command: "󰘳",
-        interaction: "󰌷",
-        event: "󰣖",
-        voice: "󰓃",
-        member: "󰀄",
-        role: "󰓎",
-        permission: "󰌾",
-        database: "󰆼",
-        cache: "󰃨",
-        api: "󰒍",
-        network: "󰛳",
-        websocket: "󰖟",
-        shard: "󰒋",
-        plugin: "󰐱",
-        scheduler: "󰥔",
-        config: "󰒓",
-    },
+    path: "logs"
 });
-
-// Basic; the new default, gray instead of white
-log.discord("Connected to Discord.");
-log.command("Executed /help");
-log.database("Connection established.");
-
-// Severity
-log.discord.success("Bot ready!"); // Green
-log.command.warn("Missing permissions."); // Yellow
-log.database.error("Connection failed."); // Red
-
-// Temporary (never written to disk)
-log.discord.temp("Connecting...");
-log.command.temp("Processing interaction...");
-log.database.error.temp("Retrying connection...");
-
-// Root logging
-log.info("Application started."); // or just log("")
-log.warn("High memory usage.");
-log.error("Unexpected error.");
-log.success("Initialization complete.");
-log.temp("Temporary information.");
-*/
-
-
-
-
-
-
-
 
 const jsonData = {
-    string: null,
-    number: 1052
+    string: "string",
+    number: 1052,
+    null: null,
+    mightBeNull: null
 };
 
 type Color = "red" | "green" | "blue";
@@ -109,13 +37,69 @@ const colors = satisfiesAll<Color>()(
 );
 
 // Removes empty or null values
-console.log(JSON.clean(jsonData)); // { number: 1052 }
+log(JSON.clean(jsonData)); // { number: 1052 }
 
 // Returns a JSON of formatted numbers
-console.log(jsonData.number.toFormat()); // { string: '1,052', short: '1.1K', long: '1.1 Thousand' }
+log(jsonData.number.toFormat()); // { string: '1,052', short: '1.1K', long: '1.1 Thousand' }
 
 // Converts a duration string into milliseconds.
-console.log(parseDuration("30s")); // 30000
+log(parseDuration("30s")); // 30000
 
 // Converts strings into compatible slugs
-console.log(slugify("I am a developer!")); // i-am-a-developer
+log(slugify("I am a developer!")); // i-am-a-developer
+
+// Assert checks
+try {
+    assert(jsonData.number).isString();
+    assert(jsonData.number).isNumber();
+
+    for (const value of [
+        jsonData.null, 
+        jsonData.mightBeNull
+    ]) {
+        assert(value).isNull();
+    }
+} catch (error) {
+    log(error); // REPLACE WITH LOGGER
+}
+
+// Extends Error to provide a better debugging experience
+try {
+    throw new AdvancedError(500, {
+        message: "An error occurred while fetching account",
+        details: {
+            query: "SELECT * FROM accounts",
+            userId: "123"
+        }
+    });
+} catch (error) {
+    if (error instanceof AdvancedError) {
+        log(error); // REPLACE WITH LOGGER
+    } else {
+        log("Unknown error:", error); // REPLACE WITH LOGGER
+    }
+}
+
+// Showcases how the logs work; db can be replaced with many predefined scopes
+log("info");
+log.success("success");
+log.warn("warning");
+log.error("error");
+
+log.db("database info");
+log.db.success("database success");
+log.db.warn("database warning");
+log.db.error("database error");
+
+log.temp("never saved, only seen in console");
+log.warn.temp("never saved, only seen in console");
+log.db.temp("never saved, only seen in console");
+log.db.warn.temp("never saved, only seen in console");
+
+log.silent("only saved, never seen in console");
+log.warn.silent("only saved, never seen in console");
+log.db.silent("only saved, never seen in console");
+log.db.warn.silent("only saved, never seen in console");
+
+// Wait for pending writes, useful for calling before server shutdown
+await log.flush();
