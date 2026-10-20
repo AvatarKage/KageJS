@@ -92,7 +92,7 @@ export type LoggerInstance = LogScope &
         silent: LogFunction;
 
         flush(): Promise<void>;
-        cleanLogs(days?: number): Promise<void>;
+        clearLogs(days?: number): Promise<void>;
     };
 
 export interface LoggerConstructor {
@@ -526,7 +526,7 @@ class Logger {
         await Promise.allSettled([...this.pendingWrites]);
     }
 
-    async cleanLogs(days = 30): Promise<void> {
+    async clearLogs(days = 30): Promise<void> {
         await this.ready;
         await this.flush();
 

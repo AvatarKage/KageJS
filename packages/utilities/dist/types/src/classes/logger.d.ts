@@ -68,7 +68,7 @@ export type LoggerInstance = LogScope & LoggerScopes & {
     temp: LogFunction;
     silent: LogFunction;
     flush(): Promise<void>;
-    cleanLogs(days?: number): Promise<void>;
+    clearLogs(days?: number): Promise<void>;
 };
 export interface LoggerConstructor {
     new (options?: LoggerOptions): LoggerInstance;

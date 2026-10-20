@@ -46,6 +46,9 @@ log.db.warn.silent("only saved, never seen in console");
 // Wait for pending writes, useful for calling before server shutdown
 await log.flush();
 
+// Clears logs older than 30 days
+await log.clearLogs();
+
 // Ensures all values inside match the type, else throw TS error
 const colors = satisfiesAll<Color>()(
     "red",
