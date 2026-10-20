@@ -39,27 +39,5 @@
         }
       }
     ]
-  },
-  "logFileHighlighter.customPatterns": [
-    {
-      "pattern": "\\[INFO\\].*",
-      "highlightEntireLine": true,
-      "foreground": "#13a10e"
-    },
-    {
-      "pattern": "\\[WARN\\].*",
-      "highlightEntireLine": true,
-      "foreground": "#c19c00"
-    },
-    {
-      "pattern": "\\[ERROR\\].*",
-      "highlightEntireLine": true,
-      "foreground": "#c50f1f"
-    },
-    {
-      "pattern": "\\[DEBUG\\].*",
-      "highlightEntireLine": true,
-      "foreground": "#3a96dd"
-    }
-  ]
+  }
 }

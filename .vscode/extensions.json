@@ -4,7 +4,6 @@
     "ms-vscode.vscode-typescript-next",
     "dbaeumer.vscode-eslint",
     "qwtel.sqlite-viewer",
-    "bradlc.vscode-tailwindcss",
-    "emilast.LogFileHighlighter"
+    "bradlc.vscode-tailwindcss"
   ]
 }
