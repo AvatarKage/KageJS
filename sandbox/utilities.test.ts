@@ -9,6 +9,7 @@ import {
     Snowflake,
 
     assert,
+    convertNumbers,
 
     parseDuration, 
     satisfiesAll,
@@ -106,6 +107,13 @@ log(parseDuration("30s")); // 30000
 
 // Converts strings into compatible slugs
 log(slugify("I am a developer!")); // i-am-a-developer
+
+// Convert numbers to text and visa versa
+const words = "I have one apple and fifty thousand pies"
+const numbers = "I have 1 apple and 50000 pies"
+
+log(convertNumbers(words).toNumbers()) // I have 1 apple and 50,000 pies
+log(convertNumbers(numbers).toWords()) // I have one apple and fifty thousand pies
 
 // Shuffles the array
 log(arrayData.shuffle()); // [2, 3, 1]

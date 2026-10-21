@@ -1,3 +1,5 @@
+import { numberScaleArray } from "../data/numbers.js";
+
 export {};
 
 /**
@@ -45,20 +47,6 @@ Object.defineProperty(Number.prototype, "toFormat", {
             "Tg"
         ];
 
-        const suffixesLong = [
-            "Thousand", "Million", "Billion", "Trillion",
-            "Quadrillion", "Quintillion", "Sextillion", "Septillion",
-            "Octillion", "Nonillion", "Decillion",
-            "Undecillion", "Duodecillion", "Tredecillion",
-            "Quattuordecillion", "Quindecillion", "Sexdecillion",
-            "Septendecillion", "Octodecillion", "Novemdecillion",
-            "Vigintillion", "Unvigintillion", "Duovigintillion",
-            "Tresvigintillion", "Quattuorvigintillion",
-            "Quinvigintillion", "Sexvigintillion", "Septemvigintillion",
-            "Octovigintillion", "Novemvigintillion",
-            "Trigintillion"
-        ];
-
         let num = Number.prototype.valueOf.call(this);
         let magnitude = 0;
 
@@ -78,7 +66,7 @@ Object.defineProperty(Number.prototype, "toFormat", {
                 : formattedShortNumber + suffixes[magnitude - 1],
             long: magnitude === 0
                 ? formattedShortNumber
-                : formattedShortNumber + " " + suffixesLong[magnitude - 1]
+                : formattedShortNumber + " " + numberScaleArray[magnitude - 1]
         };
     },
     writable: true,

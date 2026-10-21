@@ -7,6 +7,7 @@ import Logger, { type LoggerInstance } from "./src/classes/logger.js";
 import Snowflake from "./src/classes/snowflake.js";
 
 import assert from "./src/functions/assert.js";
+import convertNumbers from "./src/functions/convertNumbers.js";
 
 import parseDuration from "./src/helpers/parseDuration.js";
 import { satisfiesAll } from "./src/helpers/satisfiesAll.js";
@@ -18,6 +19,7 @@ export {
     Snowflake,
 
     assert,
+    convertNumbers,
 
     parseDuration,
     satisfiesAll,
