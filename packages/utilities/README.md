@@ -8,6 +8,7 @@ import {
     AdvancedError,
     Logger,
     Snowflake,
+    URL,
 
     assert,
     convertNumbers,
@@ -122,6 +123,19 @@ log(arrayData.shuffle()); // [2, 3, 1]
 // Selects a random item or multiple random items from array
 log(arrayData.random()); // 2
 log(arrayData.random(2)); // [3, 1]
+
+// Fully manage a URL
+const url = new URL("http://guthib.io:80/about?page=1#top");
+
+url.updateProtocol("https");
+url.updateSubdomain("www");
+url.updateDomain("github.com");
+url.updatePort();
+url.updatePath("search");
+url.updateQuery("page", "2");
+url.updateHash("bottom");
+
+log(url.href); // https://www.github.com/search?page=2#bottom
 
 // Extends Error to provide a better debugging experience
 try {

@@ -35,6 +35,8 @@
     "sync": "tsx ../../dev/syncConfig.ts",
     "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of KageJS. Copyright (c) 2026 AvatarKage. Released under the MIT license. */\" --outdir=dist --allow-overwrite"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tldts": "^7.4.19"
+  },
   "devDependencies": {}
 }

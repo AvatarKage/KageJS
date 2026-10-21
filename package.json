@@ -50,7 +50,7 @@
     "robots-parser": "^3.0.1",
     "systeminformation": "^5.33.15",
     "tailwindcss": "^4.3.0",
-    "tldts": "^7.0.28",
+    "tldts": "^7.4.19",
     "translate": "^3.0.1",
     "ws": "^8.20.0"
   },

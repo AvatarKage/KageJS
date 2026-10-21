@@ -5,6 +5,7 @@ import "./src/extensions/array.js";
 import AdvancedError from "./src/classes/advancedError.js";
 import Logger, { type LoggerInstance } from "./src/classes/logger.js";
 import Snowflake from "./src/classes/snowflake.js";
+import URL from "./src/classes/url.js";
 
 import assert from "./src/functions/assert.js";
 import convertNumbers from "./src/functions/convertNumbers.js";
@@ -17,6 +18,7 @@ export {
     AdvancedError,
     Logger,
     Snowflake,
+    URL,
 
     assert,
     convertNumbers,
