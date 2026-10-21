@@ -1,0 +1,2 @@
+/* This file is part of KageJS. Copyright (c) 2026 AvatarKage. Released under the MIT license. */
+Object.defineProperty(Array.prototype,"shuffle",{value:function(){const t=[...this];for(let e=t.length-1;e>0;e--){const r=Math.floor(Math.random()*(e+1));[t[e],t[r]]=[t[r],t[e]]}return t},writable:!0,configurable:!0}),Object.defineProperty(Array.prototype,"random",{value:function(t){return t===void 0?this.length?this[Math.floor(Math.random()*this.length)]:void 0:this.shuffle().slice(0,Math.max(0,Math.floor(t)))},writable:!0,configurable:!0});
