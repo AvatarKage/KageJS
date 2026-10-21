@@ -19,7 +19,7 @@ import {
 
 type Color = "red" | "green" | "blue";
 
-export const log: LoggerInstance = new Logger({
+export const log = new Logger({
     debugMode: true,
     nerdFonts: true,
     path: "./logs"

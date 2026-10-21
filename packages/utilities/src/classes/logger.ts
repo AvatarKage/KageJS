@@ -715,7 +715,7 @@ class Logger {
  * @param options - Optional logger configuration.
  *
  * @example
- * export const log: LoggerInstance = new Logger({
+ * export const log = new Logger({
  *     path: "./logs",
  *     nerdFonts: true,
  *     debugMode: true,
