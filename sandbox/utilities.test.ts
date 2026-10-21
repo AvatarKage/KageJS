@@ -78,6 +78,8 @@ const jsonData = {
     mightBeNull: null
 };
 
+const arrayData = [1, 2, 3];
+
 // Assert checks
 try {
     assert(jsonData.number).isString();
@@ -104,6 +106,13 @@ log(parseDuration("30s")); // 30000
 
 // Converts strings into compatible slugs
 log(slugify("I am a developer!")); // i-am-a-developer
+
+// Shuffles the array
+log(arrayData.shuffle()); // [2, 3, 1]
+
+// Selects a random item or multiple random items from array
+log(arrayData.random()); // 2
+log(arrayData.random(2)); // [3, 1]
 
 // Extends Error to provide a better debugging experience
 try {

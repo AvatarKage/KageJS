@@ -1,5 +1,6 @@
-import "./src/extensions/json.js";
 import "./src/extensions/number.js";
+import "./src/extensions/json.js";
+import "./src/extensions/array.js";
 
 import AdvancedError from "./src/classes/advancedError.js";
 import Logger, { type LoggerInstance } from "./src/classes/logger.js";

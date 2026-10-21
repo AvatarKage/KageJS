@@ -1,3 +1,5 @@
+export {};
+
 /**
  * Formats a number into multiple readable representations.
  *
@@ -83,5 +85,3 @@ Object.defineProperty(Number.prototype, "toFormat", {
     configurable: true,
     enumerable: false
 });
-
-export {};

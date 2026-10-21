@@ -1,3 +1,5 @@
+export {};
+
 /**
  * Recursively cleans an object by removing:
  * - `null`
@@ -99,5 +101,3 @@ Object.defineProperty(JSON, "clean", {
     configurable: true,
     enumerable: false
 });
-
-export {};
