@@ -280,3 +280,9 @@ maybe add a timer to the logger so there can be a start and end or smth
 add remaining asserts
 
 ensure all throw new Error are replaced with AdvancedError and that their error codes are added if needed under 1000
+
+add a high-contrast ui option to the style so enabling a high-contrast theme will ensure elements are reflecting that
+
+kagejs, make a avatar element with loading, decoration, image, animated, etc
+
+rename TextInput to Input
