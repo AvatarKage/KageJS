@@ -2,7 +2,7 @@ export const regexes = {
     // General
     email: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
     url: /^https?:\/\/[^\s/$.?#].[^\s]*$/i,
-    telephone: /^\+?[0-9\s\-().]{7,20}$/,
+    tel: /^\+?[0-9\s\-().]{7,20}$/,
 
     // Numbers
     number: /^-?\d+(\.\d+)?$/,
