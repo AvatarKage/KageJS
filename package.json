@@ -24,7 +24,7 @@
     "@kagejs/utilities": "^2.2.1",
     "@monaco-editor/react": "^4.7.0",
     "@sapphire/stopwatch": "^1.5.4",
-    "@tailwindcss/vite": "^4.3.0",
+    "@tailwindcss/vite": "^4.3.4",
     "chalk": "^5.6.2",
     "cheerio": "^1.2.0",
     "esbuild": "^0.28.0",
@@ -49,7 +49,7 @@
     "react-syntax-highlighter": "^16.1.2",
     "robots-parser": "^3.0.1",
     "systeminformation": "^5.33.15",
-    "tailwindcss": "^4.3.0",
+    "tailwindcss": "^4.3.4",
     "tldts": "^7.4.19",
     "translate": "^3.0.1",
     "ws": "^8.20.0"
