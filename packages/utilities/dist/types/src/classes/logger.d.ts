@@ -132,6 +132,8 @@ export declare const scopes: {
     readonly mic: "󰍬";
     readonly webhook: "󰘯";
     readonly discord: "";
+    readonly date: "";
+    readonly paypal: "";
 };
 export type LoggerScopeName = keyof typeof scopes;
 export type LoggerScopes = Record<LoggerScopeName, LogScope>;

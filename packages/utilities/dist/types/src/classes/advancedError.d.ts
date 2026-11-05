@@ -110,6 +110,7 @@ type Props = {
 
  * Application Errors
  * - 1000: Assertion Failed
+ * - 1001: Invalid Timestamp
  * - 1052: Shadow Detected
 
  * Database Errors
