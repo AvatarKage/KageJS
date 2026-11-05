@@ -5,7 +5,7 @@
 // import "@kagejs/utilities";
 
 import { 
-    AdvancedError,
+AdvancedError,
     Logger,
     Snowflake,
     URL,
@@ -21,6 +21,8 @@ import {
     slugify,
     pluralize,
     possessivize,
+
+    regexes,
 
     type LoggerInstance
 } from "@kagejs/utilities";
@@ -207,6 +209,9 @@ log.time(stopwatch.getLaps());
 
 // Stopwatch conditional check
 log.time(stopwatch.isRunning());
+
+// Common predefined regexes
+log.test(regexes.passwordStrong.test("password"));
 
 // Extends Error to provide a better debugging experience
 try {

@@ -21,6 +21,8 @@ import {
     pluralize,
     possessivize,
 
+    regexes,
+
     type LoggerInstance
 } from "../packages/utilities/index.js";
 
@@ -206,6 +208,9 @@ log.time(stopwatch.getLaps());
 
 // Stopwatch conditional check
 log.time(stopwatch.isRunning());
+
+// Common predefined regexes
+log.test(regexes.passwordStrong.test("password"));
 
 // Extends Error to provide a better debugging experience
 try {

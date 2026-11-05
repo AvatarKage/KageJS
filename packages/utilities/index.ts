@@ -19,6 +19,8 @@ import slugify from "./src/helpers/slugify.js";
 import pluralize from "./src/helpers/pluralize.js";
 import possessivize from "./src/helpers/possessivize.js";
 
+import { regexes } from "./src/constants/regexs.js";
+
 export {
     AdvancedError,
     Logger,
@@ -36,6 +38,8 @@ export {
     slugify,
     pluralize,
     possessivize,
+
+    regexes,
 
     LoggerInstance
 };
