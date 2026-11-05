@@ -6,6 +6,9 @@ import AdvancedError from "./src/classes/advancedError.js";
 import Logger, { type LoggerInstance } from "./src/classes/logger.js";
 import Snowflake from "./src/classes/snowflake.js";
 import URL from "./src/classes/url.js";
+import Timer from "./src/classes/timer.js";
+import Stopwatch from "./src/classes/stopwatch.js";
+import Timestamp from "./src/classes/timestamp.js";
 
 import assert from "./src/functions/assert.js";
 import convertNumbers from "./src/functions/convertNumbers.js";
@@ -13,12 +16,17 @@ import convertNumbers from "./src/functions/convertNumbers.js";
 import parseDuration from "./src/helpers/parseDuration.js";
 import { satisfiesAll } from "./src/helpers/satisfiesAll.js";
 import slugify from "./src/helpers/slugify.js";
+import pluralize from "./src/helpers/pluralize.js";
+import possessivize from "./src/helpers/possessivize.js";
 
 export {
     AdvancedError,
     Logger,
     Snowflake,
     URL,
+    Timer,
+    Stopwatch,
+    Timestamp,
 
     assert,
     convertNumbers,
@@ -26,6 +34,8 @@ export {
     parseDuration,
     satisfiesAll,
     slugify,
+    pluralize,
+    possessivize,
 
     LoggerInstance
 };
