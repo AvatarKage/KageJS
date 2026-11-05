@@ -9,13 +9,18 @@ import {
     Logger,
     Snowflake,
     URL,
+    Timer,
+    Stopwatch,
+    Timestamp,
 
     assert,
     convertNumbers,
 
-    parseDuration, 
+    parseDuration,
     satisfiesAll,
     slugify,
+    pluralize,
+    possessivize,
 
     type LoggerInstance
 } from "@kagejs/utilities";
@@ -110,11 +115,17 @@ log(parseDuration("30s")); // 30000
 // Converts strings into compatible slugs
 log(slugify("I am a developer!")); // i-am-a-developer
 
+// Converts a noun into its plural form
+log(pluralize("developer")); // developers
+
+// Converts a name into its possessive form
+log(possessivize("Developer")); // Developer's
+
 // Convert numbers to text and visa versa
 const words = "I have one apple and fifty thousand pies"
 const numbers = "I have 1 apple and 50000 pies"
 
-log(convertNumbers(words).toNumbers()) // I have 1 apple and 50000 pies
+log(convertNumbers(words).toNumbers()) // I have 1 apple and 50,000 pies
 log(convertNumbers(numbers).toWords()) // I have one apple and fifty thousand pies
 
 // Shuffles the array
@@ -136,6 +147,66 @@ url.updateQuery("page", "2");
 url.updateHash("bottom");
 
 log(url.href); // https://www.github.com/search?page=2#bottom
+
+// Create a new timestamp (not to be confused with Date or DateTime)
+const timestamp = new Timestamp("2026-01-01");
+
+// Get the current milliseconds for use in Date or DateTime
+log.date(timestamp.milliseconds);
+
+// Formats the timestamp as a detailed relative time string
+log.date(timestamp.toLongRelative()); // 10 months ago
+
+// Formats the timestamp as a short, human-readable date after 48 hours
+log.date(timestamp.toShortRelative()); // "47 hours ago" then "January 1, 2026"
+
+// Formats the timestamp as a full date
+log.date(timestamp.toFullDate()); // January 1, 2026
+
+// Timestamp conditional checks
+log.date(timestamp.isPast());
+log.date(timestamp.isFuture());
+log.date(timestamp.isToday());
+log.date(timestamp.isAnniversaryToday());
+
+// Formats a remaining duration into a human-readable countdown
+log.date(timestamp.toRemaining()); // "1h 1m 1s left" or "" if no time left
+
+// Create a timer
+const timer = new Timer(parseDuration("1m"));
+
+// Manage the timer
+timer.start();
+timer.pause();
+timer.resume();
+timer.reset();
+
+// Retrive the timer's data
+log.time(timer.getDuration());
+log.time(timer.getElapsed());
+log.time(timer.getRemaining());
+
+// Timer conditional checks
+log.time(timer.isRunning());
+log.time(timer.isFinished());
+
+// Create a stopwatch
+const stopwatch = new Stopwatch();
+
+// Manage the stopwatch
+stopwatch.start();
+stopwatch.lap();
+stopwatch.pause();
+stopwatch.resume();
+stopwatch.reset();
+
+// Retrive the stopwatch's data
+log.time(stopwatch.getElapsed());
+log.time(stopwatch.getLastLap());
+log.time(stopwatch.getLaps());
+
+// Stopwatch conditional check
+log.time(stopwatch.isRunning());
 
 // Extends Error to provide a better debugging experience
 try {
