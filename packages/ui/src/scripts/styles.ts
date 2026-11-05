@@ -1,7 +1,7 @@
 import type { 
     Aspect,
     Color, 
-    Interaction, 
+    Depth, 
     Pos, 
     Shape, 
     Size, 
@@ -72,6 +72,35 @@ export function getColorVariantStyles(
     }
 }
 
+export function getDepthStyles(
+    depth: Depth, 
+    color: Color,
+    variant: Variant,
+    {
+        includeHover,
+    } : {
+        includeHover?: boolean;
+    } = {}
+): string {
+    const isBorderVarient =
+        variant === "outline"
+        || variant === "dash"
+        || variant === "soft"
+        || variant === "underline"
+        || variant === "ghost"
+        || variant === "link"
+    ;
+
+    switch (depth) {
+        case "3d":
+            return `border-b-[6px] ${isBorderVarient ? `border-b-${color}` : `border-white/15 border-b-black/30` } transition-all ${includeHover && "hover:border-b-black/30 "} enabled:active:translate-y-1 enabled:active:border-b-[2px]`;
+
+        case "flat":
+        default:
+            return "shadow-none enabled:active:brightness-90 transition-all";
+    }
+}
+
 export const sizeStyles: Record<Size, string> = {
     xs: "py-1 px-2 text-xs min-h-6.5 min-w-6.5",
     sm: "py-1.5 px-3 text-sm min-h-8.5 min-w-8.5",
@@ -97,7 +126,7 @@ export const iconSizeStyles: Record<Size, string> = {
 };
 
 export const shapeStyles: Record<Shape, string> = {
-    square: "rounded-none",
+    square: "rounded-[1px]",
     rounded: "rounded-field",
     circle: "rounded-full"
 };
@@ -143,9 +172,3 @@ export const textPositionStyles: Record<string, string> = {
     right: "text-right"
 };
 
-export const interactionStyles: Record<Interaction, string> = {
-    none: "",
-    press: "enabled:active:brightness-90",
-    scale: "enabled:active:scale-[0.98]",
-    offset: "enabled:active:translate-y-0.5"
-};
