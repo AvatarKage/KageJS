@@ -60,9 +60,7 @@ export type Pos =
     | HozPos
 ;
 
-export type Interaction =
-    | "none"
-    | "press"
-    | "scale"
-    | "offset"
+export type Depth =
+    | "flat"
+    | "3d"
 ;
