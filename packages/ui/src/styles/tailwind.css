@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@source "../";
+
 @source inline("bg-transparent");
 @source inline("border");
 @source inline("border-dashed");
