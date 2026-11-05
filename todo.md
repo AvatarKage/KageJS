@@ -284,5 +284,3 @@ ensure all throw new Error are replaced with AdvancedError and that their error 
 add a high-contrast ui option to the style so enabling a high-contrast theme will ensure elements are reflecting that
 
 kagejs, make a avatar element with loading, decoration, image, animated, etc
-
-rename TextInput to Input
