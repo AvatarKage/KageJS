@@ -1,0 +1,25 @@
+export declare const regexes: {
+    email: RegExp;
+    url: RegExp;
+    telephone: RegExp;
+    number: RegExp;
+    integer: RegExp;
+    decimal: RegExp;
+    positiveNumber: RegExp;
+    negativeNumber: RegExp;
+    alphanumeric: RegExp;
+    alphanumericSpace: RegExp;
+    username: RegExp;
+    slug: RegExp;
+    password: RegExp;
+    passwordModerate: RegExp;
+    passwordStrong: RegExp;
+    ipv4: RegExp;
+    ipv6: RegExp;
+    dateISO: RegExp;
+    time12: RegExp;
+    time12Meridiem: RegExp;
+    time24: RegExp;
+    time24Seconds: RegExp;
+    fileName: RegExp;
+};

@@ -15,4 +15,5 @@ import { satisfiesAll } from "./src/helpers/satisfiesAll.js";
 import slugify from "./src/helpers/slugify.js";
 import pluralize from "./src/helpers/pluralize.js";
 import possessivize from "./src/helpers/possessivize.js";
-export { AdvancedError, Logger, Snowflake, URL, Timer, Stopwatch, Timestamp, assert, convertNumbers, parseDuration, satisfiesAll, slugify, pluralize, possessivize, LoggerInstance };
+import { regexes } from "./src/constants/regexs.js";
+export { AdvancedError, Logger, Snowflake, URL, Timer, Stopwatch, Timestamp, assert, convertNumbers, parseDuration, satisfiesAll, slugify, pluralize, possessivize, regexes, LoggerInstance };
