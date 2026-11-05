@@ -1,7 +1,7 @@
 import Button from "./src/components/Button.js";
-import TextInput from "./src/components/TextInput.js";
+import Input from "./src/components/Input.js";
 
 export {
     Button,
-    TextInput
+    Input
 }

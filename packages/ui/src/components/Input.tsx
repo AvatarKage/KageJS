@@ -9,7 +9,8 @@ import type {
     Width,
     Aspect,
     HozPos,
-    Pos
+    Pos,
+    Depth
 } from "../../types/common.type.js";
 
 import {
@@ -17,6 +18,7 @@ import {
     getColorVariantStyles,
     iconPositionStyles,
     iconSizeStyles,
+    getDepthStyles,
     textPositionStyles,
     shapeStyles,
     sizeStyles
@@ -38,14 +40,17 @@ interface Props
     labelPosition?: HozPos;
     iconPosition?: Exclude<Pos, "center">;
     valuePosition?: HozPos;
+    depth?: Depth;
     active?: boolean;
     loading?: boolean;
     error?: boolean;
     errorMessage?: string;
     helpMessage?: string;
+    backgroundColor?: string;
+    textColor?: string;
 }
 
-export default function TextInput({
+export default function Input({
     size = "base",
     color = "primary",
     variant = "outline",
@@ -56,6 +61,7 @@ export default function TextInput({
     labelPosition = "left",
     iconPosition = "left",
     valuePosition = "left",
+    depth = "flat",
     active = false,
     disabled = false,
     loading = false,
@@ -71,6 +77,8 @@ export default function TextInput({
     onChange,
     value,
     defaultValue,
+    backgroundColor,
+    textColor,
     ...props
 }: Props) {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -93,6 +101,15 @@ export default function TextInput({
     const currentValue = value !== undefined
         ? String(value ?? "")
         : inputValue;
+
+    const styleColorOverride = {
+        ...(backgroundColor && {
+            "--color-primary": backgroundColor,
+        }),
+        ...(textColor && {
+            "--color-primary-content": textColor,
+        }),
+    } as React.CSSProperties;
 
     const baseWrapperStyles = [
         "input relative inline-flex min-w-0 items-center gap-2",
@@ -148,6 +165,7 @@ export default function TextInput({
         getColorVariantStyles(hasError ? "error" : color, variant),
         sizeStyles[size],
         iconPositionStyles[iconPosition],
+        getDepthStyles(depth, color, variant),
         width === "full" ? "w-full" : "w-auto",
         (active || isFocused) && !isDisabled && activeRingStyles[color]
     ].filter(Boolean).join(" ");
@@ -194,7 +212,10 @@ export default function TextInput({
 
             <div
                 className={combinedWrapperStyles}
-                style={style}
+                style={{
+                    ...style,
+                    ...styleColorOverride,
+                }}
             >
                 {iconPosition === "left" && visibleIcon}
 
