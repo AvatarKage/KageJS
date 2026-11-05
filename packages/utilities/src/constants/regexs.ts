@@ -37,4 +37,4 @@ export const regexes = {
 
     // Files
     fileName: /^[\w,\s-]+\.[a-zA-Z0-9]+$/,
-};
+} as const;

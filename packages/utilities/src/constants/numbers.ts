@@ -9,4 +9,4 @@ export const numberScaleArray = [
     "Tresvigintillion", "Quattuorvigintillion",
     "Quinvigintillion", "Sexvigintillion", "Septemvigintillion",
     "Octovigintillion", "Novemvigintillion", "Trigintillion",
-];
+] as const;
