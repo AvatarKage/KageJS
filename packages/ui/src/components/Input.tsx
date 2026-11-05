@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Icon } from "@iconify/react";
+import { regexes } from "@kagejs/utilities";
 
 import type {
     Size,
@@ -48,6 +49,7 @@ interface Props
     helpMessage?: string;
     backgroundColor?: string;
     textColor?: string;
+    validate?: boolean;
 }
 
 export default function Input({
@@ -79,11 +81,14 @@ export default function Input({
     defaultValue,
     backgroundColor,
     textColor,
+    validate = false,
     ...props
 }: Props) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [isFocused, setIsFocused] = useState(false);
+    const [hasBlurred, setHasBlurred] = useState(false);
+
     const [inputValue, setInputValue] = useState(
         String(value ?? defaultValue ?? "")
     );
@@ -94,13 +99,62 @@ export default function Input({
     const errorId = `${inputId}-error`;
     const helperId = `${inputId}-helper`;
 
-    const hasError = error || Boolean(errorMessage);
-    const isDisabled = disabled || loading;
-    const isSearch = type === "search";
-
     const currentValue = value !== undefined
         ? String(value ?? "")
         : inputValue;
+
+    const isValidColor = (value: string): boolean =>
+        typeof CSS !== "undefined" 
+        && CSS.supports("color", value)
+    ;
+
+    const inputValidators: Partial<Record<string, {
+        validate: (value: string) => boolean;
+        message: string;
+    }>> = {
+        email: {
+            validate: (value) => regexes.email.test(value),
+            message: "Please enter a valid email address."
+        },
+        password: {
+            validate: (value) => regexes.password.test(value),
+            message: "Password must contain at least 8 characters."
+        },
+        url: {
+            validate: (value) => regexes.url.test(value),
+            message: "Please enter a valid URL."
+        },
+        tel: {
+            validate: (value) => regexes.tel.test(value),
+            message: "Please enter a valid telephone number."
+        },
+        number: {
+            validate: (value) => regexes.number.test(value),
+            message: "Please enter a valid number."
+        },
+        color: {
+            validate: isValidColor,
+            message: "Please enter a valid CSS color."
+        }
+    };
+
+    const validator = inputValidators[type];
+
+    const isInvalid =
+        validate &&
+        hasBlurred &&
+        Boolean(currentValue) &&
+        Boolean(validator) &&
+        !validator!.validate(currentValue);
+
+    const validationMessage = isInvalid
+        ? errorMessage || validator?.message
+        : errorMessage;
+
+    const hasError = error || Boolean(errorMessage) || isInvalid;
+
+    const isDisabled = disabled || loading;
+    const isSearch = type === "search";
 
     const styleColorOverride = {
         ...(backgroundColor && {
@@ -167,7 +221,7 @@ export default function Input({
         iconPositionStyles[iconPosition],
         getDepthStyles(depth, color, variant),
         width === "full" ? "w-full" : "w-auto",
-        (active || isFocused) && !isDisabled && activeRingStyles[color]
+        (active || isFocused) && !isDisabled && activeRingStyles[hasError ? "error" : color]
     ].filter(Boolean).join(" ");
 
     const combinedInputStyles = [
@@ -178,7 +232,7 @@ export default function Input({
     ].filter(Boolean).join(" ");
 
     const describedBy = [
-        hasError && errorMessage ? errorId : undefined,
+        hasError && validationMessage ? errorId : undefined,
         helpMessage ? helperId : undefined
     ].filter(Boolean).join(" ") || undefined;
 
@@ -238,6 +292,7 @@ export default function Input({
                     }}
                     onBlur={(event) => {
                         setIsFocused(false);
+                        setHasBlurred(true);
                         onBlur?.(event);
                     }}
                     aria-busy={loading || undefined}
@@ -285,13 +340,13 @@ export default function Input({
                 {iconPosition === "right" && !isSearch && visibleIcon}
             </div>
 
-            {hasError && errorMessage ? (
+            {hasError && validationMessage ? (
                 <span
                     id={errorId}
                     className="text-xs text-error"
                     role="alert"
                 >
-                    {errorMessage}
+                    {validationMessage}
                 </span>
             ) : helpMessage ? (
                 <span

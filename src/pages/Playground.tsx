@@ -131,6 +131,7 @@ const inputProps: EditorProp[] = [
     { name: "depth", values: ["flat", "3d"] },
     { name: "backgroundColor", type: "string" },
     { name: "textColor", type: "string" },
+    { name: "validate", type: "boolean" },
 ];
 
 /* DEFAULT CODE */
@@ -147,8 +148,8 @@ const defaultCode = `
 
     <div className="mt-8 grid max-w-md gap-4">
         <Input label="Name" placeholder="Enter your name..." />
-        <Input label="Email" type="email" icon="lucide:mail" placeholder="Enter email..." />
-        <Input label="Password" type="password" icon="lucide:lock" placeholder="Enter password..." />
+        <Input label="Email" type="email" validate icon="lucide:mail" placeholder="Enter email..." />
+        <Input label="Password" type="password" validate icon="lucide:lock" placeholder="Enter password..." />
         <Input label="Search" type="search" placeholder="Search..." />
         <Input label="Error" error errorMessage="This field is required." />
     </div>
