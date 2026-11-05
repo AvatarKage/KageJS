@@ -74,7 +74,7 @@ export default function Button({
     const isVertical = iconPosition === "top" || iconPosition === "bottom";
 
     const baseStyles = [
-        "relative inline-flex items-center justify-center gap-2 font-medium select-none",
+        "btn relative inline-flex items-center justify-center gap-2 font-medium select-none",
         "transition-[transform,filter,box-shadow,background-color,color] duration-150",
         "focus-visible:outline-none",
         focusRingStyles[color],
