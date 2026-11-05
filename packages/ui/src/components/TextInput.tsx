@@ -68,11 +68,17 @@ export default function TextInput({
     type = "text",
     onFocus,
     onBlur,
+    onChange,
+    value,
+    defaultValue,
     ...props
 }: Props) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [isFocused, setIsFocused] = useState(false);
+    const [inputValue, setInputValue] = useState(
+        String(value ?? defaultValue ?? "")
+    );
 
     const generatedId = React.useId();
     const inputId = id ?? generatedId;
@@ -82,9 +88,14 @@ export default function TextInput({
 
     const hasError = error || Boolean(errorMessage);
     const isDisabled = disabled || loading;
+    const isSearch = type === "search";
+
+    const currentValue = value !== undefined
+        ? String(value ?? "")
+        : inputValue;
 
     const baseWrapperStyles = [
-        "relative inline-flex min-w-0 items-center gap-2",
+        "input relative inline-flex min-w-0 items-center gap-2",
         "transition-[transform,filter,box-shadow,background-color,color] duration-150",
         "focus-within:outline-none",
         isDisabled ? "cursor-not-allowed opacity-50" : "cursor-text"
@@ -97,21 +108,25 @@ export default function TextInput({
         "disabled:opacity-50",
     ].join(" ");
 
+    const displayIcon = isSearch && !icon
+        ? "lucide:search"
+        : icon;
+
     const iconElement =
-        typeof icon === "string" ? (
+        typeof displayIcon === "string" ? (
             <Icon
-                icon={icon}
+                icon={displayIcon}
                 width={iconSizeStyles[size]}
                 height={iconSizeStyles[size]}
                 className="shrink-0"
                 aria-hidden="true"
             />
-        ) : icon ? (
+        ) : displayIcon ? (
             <span
                 className="inline-flex shrink-0 items-center justify-center"
                 aria-hidden="true"
             >
-                {icon}
+                {displayIcon}
             </span>
         ) : null;
 
@@ -167,6 +182,7 @@ export default function TextInput({
         >
             {label && (
                 <label
+                    htmlFor={inputId}
                     className={[
                         "text-sm font-medium text-base-content/80",
                         textPositionStyles[labelPosition]
@@ -187,8 +203,14 @@ export default function TextInput({
                     ref={inputRef}
                     id={inputId}
                     type={type}
+                    value={value !== undefined ? value : inputValue}
+                    defaultValue={undefined}
                     disabled={isDisabled}
                     className={combinedInputStyles}
+                    onChange={(event) => {
+                        setInputValue(event.target.value);
+                        onChange?.(event);
+                    }}
                     onFocus={(event) => {
                         setIsFocused(true);
                         onFocus?.(event);
@@ -202,7 +224,44 @@ export default function TextInput({
                     aria-describedby={describedBy}
                 />
 
-                {iconPosition === "right" && visibleIcon}
+                {isSearch && currentValue && !isDisabled && (
+                    <button
+                        type="button"
+                        onClick={() => {
+                            if (value === undefined) {
+                                setInputValue("");
+                            }
+
+                            const input = inputRef.current;
+
+                            if (!input) return;
+
+                            const setter = Object.getOwnPropertyDescriptor(
+                                HTMLInputElement.prototype,
+                                "value"
+                            )?.set;
+
+                            setter?.call(input, "");
+
+                            input.dispatchEvent(
+                                new Event("input", { bubbles: true })
+                            );
+
+                            input.focus();
+                        }}
+                        className="inline-flex shrink-0 items-center justify-center opacity-60 hover:opacity-100"
+                        aria-label="Clear search"
+                    >
+                        <Icon
+                            icon="lucide:x"
+                            width={iconSizeStyles[size]}
+                            height={iconSizeStyles[size]}
+                            className="cursor-pointer"
+                        />
+                    </button>
+                )}
+
+                {iconPosition === "right" && !isSearch && visibleIcon}
             </div>
 
             {hasError && errorMessage ? (
