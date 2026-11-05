@@ -9,7 +9,7 @@
 @source inline("underline-offset-4");
 @source inline("{bg,border,text}-{neutral,primary,secondary,accent,info,success,warning,error}");
 @source inline("bg-{neutral,primary,secondary,accent,info,success,warning,error}/{10,20}");
-@source inline("{border,text}-{neutral,primary,secondary,accent,info,success,warning,error}{-content,/20}");
+@source inline("{border,border-b,text}-{neutral,primary,secondary,accent,info,success,warning,error}{-content,/10,/15,/20,/30}");
 @source inline("hover:{brightness-110,underline}");
 @source inline("hover:bg-{neutral,primary,secondary,accent,info,success,warning,error}");
 @source inline("hover:bg-{neutral,primary,secondary,accent,info,success,warning,error}/{10,20}");
