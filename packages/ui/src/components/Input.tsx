@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { regexes } from "@kagejs/utilities";
 
@@ -28,7 +28,7 @@ import {
 interface Props
     extends Omit<
         React.InputHTMLAttributes<HTMLInputElement>,
-        "color" | "size" | "width"
+        "color" | "size" | "width" | "onError"
     > {
     size?: Size;
     color?: Color;
@@ -50,6 +50,8 @@ interface Props
     backgroundColor?: string;
     textColor?: string;
     validate?: boolean;
+    regex?: RegExp;
+    onError?: (isInvalid: boolean) => void;
 }
 
 export default function Input({
@@ -77,11 +79,13 @@ export default function Input({
     onFocus,
     onBlur,
     onChange,
+    onError,
     value,
     defaultValue,
     backgroundColor,
     textColor,
-    validate = false,
+    validate = true,
+    regex,
     ...props
 }: Props) {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -144,14 +148,23 @@ export default function Input({
         validate &&
         hasBlurred &&
         Boolean(currentValue) &&
-        Boolean(validator) &&
-        !validator!.validate(currentValue);
+        (
+            regex
+                ? !regex.test(currentValue)
+                : Boolean(validator) && !validator!.validate(currentValue)
+        );
 
     const validationMessage = isInvalid
-        ? errorMessage || validator?.message
+        ? errorMessage || (regex
+            ? "Invalid input format."
+            : validator?.message || "Invalid input format.")
         : errorMessage;
 
     const hasError = error || Boolean(errorMessage) || isInvalid;
+
+    useEffect(() => {
+        onError?.(hasError);
+    }, [hasError, onError]);
 
     const isDisabled = disabled || loading;
     const isSearch = type === "search";

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 
 import { Button, Input } from "../../packages/ui/index.js";
 import LiveComponentEditor, {
@@ -132,6 +133,8 @@ const inputProps: EditorProp[] = [
     { name: "backgroundColor", type: "string" },
     { name: "textColor", type: "string" },
     { name: "validate", type: "boolean" },
+    { name: "regex", type: "string" },
+    { name: "onError", type: "event" },
 ];
 
 /* DEFAULT CODE */
@@ -147,9 +150,11 @@ const defaultCode = `
     </div>
 
     <div className="mt-8 grid max-w-md gap-4">
-        <Input label="Name" placeholder="Enter your name..." />
-        <Input label="Email" type="email" validate icon="lucide:mail" placeholder="Enter email..." />
-        <Input label="Password" type="password" validate icon="lucide:lock" placeholder="Enter password..." />
+        <Input label="Name" regex={/^[a-zA-Z\s]{2,50}$/} placeholder="Enter your name..." onError={(isInvalid: boolean) => {
+                        console.log("Input invalid:", isInvalid);
+                    }}/>
+        <Input label="Email" type="email" icon="lucide:mail" placeholder="Enter email..." />
+        <Input label="Password" type="password" icon="lucide:lock" placeholder="Enter password..." />
         <Input label="Search" type="search" placeholder="Search..." />
         <Input label="Error" error errorMessage="This field is required." />
     </div>
