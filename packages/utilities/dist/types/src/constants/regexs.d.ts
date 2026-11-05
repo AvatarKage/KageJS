@@ -1,7 +1,7 @@
 export declare const regexes: {
     email: RegExp;
     url: RegExp;
-    telephone: RegExp;
+    tel: RegExp;
     number: RegExp;
     integer: RegExp;
     decimal: RegExp;

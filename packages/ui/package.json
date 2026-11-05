@@ -37,7 +37,7 @@
     "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of KageJS. Copyright (c) 2026 AvatarKage. Released under the MIT license. */\" --outdir=dist --allow-overwrite"
   },
   "dependencies": {
-    "@kagejs/utilities": "2.6.0"
+    "@kagejs/utilities": "2.6.1"
   },
   "devDependencies": {}
 }
