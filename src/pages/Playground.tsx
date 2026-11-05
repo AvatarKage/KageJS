@@ -59,6 +59,8 @@ const buttonProps: EditorProp[] = [
     { name: "disabled", type: "boolean" },
     { name: "loading", type: "boolean" },
     { name: "depth", values: ["flat", "3d"] },
+    { name: "backgroundColor", type: "string" },
+    { name: "textColor", type: "string" },
 ];
 
 /* INPUT PROPS */
@@ -127,6 +129,8 @@ const inputProps: EditorProp[] = [
     { name: "maxLength", type: "number" },
     { name: "minLength", type: "number" },
     { name: "depth", values: ["flat", "3d"] },
+    { name: "backgroundColor", type: "string" },
+    { name: "textColor", type: "string" },
 ];
 
 /* DEFAULT CODE */
