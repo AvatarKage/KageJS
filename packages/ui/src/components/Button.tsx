@@ -10,7 +10,7 @@ import type {
     Aspect,
     HozPos,
     Pos,
-    Interaction
+    Depth
 } from "../../types/common.type.js";
 
 import {
@@ -21,7 +21,7 @@ import {
     iconOnlySizeStyles,
     iconPositionStyles,
     iconSizeStyles,
-    interactionStyles,
+    getDepthStyles,
     textPositionStyles,
     shapeStyles,
     sizeStyles
@@ -41,9 +41,11 @@ interface Props extends Omit<
     icon?: string | React.ReactNode;
     labelPosition?: HozPos;
     iconPosition?: Exclude<Pos, "center">;
+    depth?: Depth;
     active?: boolean;
     loading?: boolean;
-    interaction?: Interaction;
+    backgroundColor?: string;
+    textColor?: string;
 }
 
 export default function Button({
@@ -57,14 +59,16 @@ export default function Button({
     icon,
     labelPosition = "center",
     iconPosition = "left",
+    depth = "flat",
     active = false,
     disabled = false,
     loading = false,
-    interaction = "press",
     children,
     className,
     style,
     type = "button",
+    backgroundColor,
+    textColor,
     ...props
 }: Props) {
     const content = children ?? label;
@@ -72,6 +76,15 @@ export default function Button({
 
     const isDisabled = disabled || loading;
     const isVertical = iconPosition === "top" || iconPosition === "bottom";
+
+    const styleColorOverride = {
+        ...(backgroundColor && {
+            "--color-primary": backgroundColor,
+        }),
+        ...(textColor && {
+            "--color-primary-content": textColor,
+        }),
+    } as React.CSSProperties;
 
     const baseStyles = [
         "btn relative inline-flex items-center justify-center gap-2 font-medium select-none",
@@ -120,7 +133,9 @@ export default function Button({
             includeHover: !isDisabled
         }),
         isIconOnly ? iconOnlySizeStyles[size] : sizeStyles[size],
-        interactionStyles[interaction],
+        getDepthStyles(depth, color, variant, {
+            includeHover: !isDisabled
+        }),
         !isIconOnly ? iconPositionStyles[iconPosition] : "",
         width === "full" ? "w-full" : "w-auto",
         isIconOnly ? "justify-center" : "",
@@ -134,7 +149,10 @@ export default function Button({
             className={combinedStyles}
             type={type}
             disabled={isDisabled}
-            style={style}
+            style={{
+                ...style,
+                ...styleColorOverride
+            }}
             aria-busy={loading || undefined}
             aria-pressed={active || undefined}
             aria-label={
