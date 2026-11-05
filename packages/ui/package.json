@@ -25,7 +25,8 @@
     ".": {
       "default": "./dist/index.js",
       "types": "./dist/types/index.d.ts"
-    }
+    },
+    "./styles.css": "./styles/tailwind.css"
   },
   "files": [
     "dist"
