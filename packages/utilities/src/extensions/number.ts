@@ -1,4 +1,4 @@
-import { numberScaleArray } from "../data/numbers.js";
+import { numberScaleArray } from "../constants/numbers.js";
 
 export {};
 

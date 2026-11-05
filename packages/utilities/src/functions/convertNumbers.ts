@@ -1,4 +1,4 @@
-import { numberScaleArray } from "../data/numbers.js";
+import { numberScaleArray } from "../constants/numbers.js";
 
 const numberWordsMap: Record<string, number> = {
     zero: 0,
