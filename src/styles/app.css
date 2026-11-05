@@ -1,3 +1,10 @@
+@layer base {
+    :root {
+        --color-override: #52a435;
+        --color-override-content: #000000;
+    }
+}
+
 .btn {}
 
 .input {}
