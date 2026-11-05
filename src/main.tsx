@@ -9,12 +9,16 @@ import "./styles/app.css";
 import "./main.js";
 
 import Home from "./pages/Home.js"
+import Playground from "./pages/Playground.js";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <HelmetProvider>
             <BrowserRouter>
                 <Routes>
+                    <Route path="/playground" element={<Playground />} />
+
+                    {/* Add a 404 later on */}
                     <Route path="*" element={<Home />} />
                 </Routes>
             </BrowserRouter>
