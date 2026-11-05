@@ -153,6 +153,8 @@ export const scopes = {
     mic: "󰍬",
     webhook: "󰘯",
     discord: "",
+    date: "",
+    paypal: ""
 } as const;
 
 export type LoggerScopeName = keyof typeof scopes;
