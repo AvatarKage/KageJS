@@ -12,7 +12,7 @@ export default defineConfig({
     root: "src",
 
     build: {
-        outDir: "../dist/src",
+        outDir: "../docs",
         emptyOutDir: true,
 
         rolldownOptions: {
