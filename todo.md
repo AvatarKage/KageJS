@@ -278,3 +278,5 @@ const html = page.render();
 maybe add a timer to the logger so there can be a start and end or smth
 
 add remaining asserts
+
+ensure all throw new Error are replaced with AdvancedError and that their error codes are added if needed under 1000
