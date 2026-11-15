@@ -1,10 +1,15 @@
-import "./src/extensions/json.js";
-import "./src/extensions/number.js";
+import generateIndex from "./src/plugins/generateIndex.js";
 
-import parseDuration from "./src/helpers/parseDuration.js";
-import { satisfiesAll } from "./src/helpers/satisfiesAll.js";
+import parseProperties from "./src/helpers/parseProperties.js";
+
+import type { WikiProperties } from "./types/wiki.type.js";
 
 export {
-    parseDuration,
-    satisfiesAll
+    generateIndex,
+
+    parseProperties
+};
+
+export type {
+    WikiProperties
 };
