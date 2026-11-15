@@ -42,7 +42,8 @@ export default function AutoModPage() {
             },
 
             ignore: {
-                reversed: true
+                reversed: true,
+                spacing: false
             },
 
             // MAKE THIS DEFAULT UNLESS OVERRIDEN
