@@ -4,13 +4,13 @@
   "description": "Includes various common extensions and helpers for the KageJS ecosystem.",
   "keywords": [
     "kagejs",
+    "typescript",
+    "javascript",
     "utilities",
     "utils",
     "tools",
     "helpers",
-    "extensions",
-    "typescript",
-    "javascript"
+    "extensions"
   ],
   "author": "AvatarKage",
   "license": "MIT",
@@ -36,8 +36,9 @@
     "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of KageJS. Copyright (c) 2026 AvatarKage. Released under the MIT license. */\" --outdir=dist --allow-overwrite"
   },
   "dependencies": {
-    "tldts": "^7.4.19",
-    "luxon": "^3.7.2"
+    "chalk": "5.6.2",
+    "tldts": "7.4.19",
+    "luxon": "3.7.2"
   },
   "devDependencies": {}
 }

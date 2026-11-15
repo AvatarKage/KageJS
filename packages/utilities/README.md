@@ -1,11 +1,9 @@
 ```ts
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 // Import like the comment below if you only want to use the extensions
 // import "@kagejs/utilities";
 
 import { 
-AdvancedError,
+    AdvancedError,
     Logger,
     Snowflake,
     URL,
@@ -24,7 +22,8 @@ AdvancedError,
 
     regexes,
 
-    type LoggerInstance
+    type LoggerInstance,
+    type Duration
 } from "@kagejs/utilities";
 
 type Color = "red" | "green" | "blue";

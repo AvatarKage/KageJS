@@ -4,13 +4,13 @@ type Props = {
 };
 
 const DefaultErrorMessages: Record<number, string> = {
-    // Informational Responses
+    // Informational responses
     100: "Continue",
     101: "Switching Protocols",
     102: "Processing",
     103: "Early Hints",
 
-    // Successful Responses
+    // Successful responses
     200: "OK",
     201: "Created",
     202: "Accepted",
@@ -22,7 +22,7 @@ const DefaultErrorMessages: Record<number, string> = {
     208: "Already Reported",
     226: "IM Used",
 
-    // Redirection Responses
+    // Redirection responses
     300: "Multiple Choices",
     301: "Moved Permanently",
     302: "Found",
@@ -32,7 +32,7 @@ const DefaultErrorMessages: Record<number, string> = {
     307: "Temporary Redirect",
     308: "Permanent Redirect",
 
-    // Client Error Responses
+    // Client error responses
     400: "Bad Request",
     401: "Unauthorized",
     402: "Payment Required",
@@ -63,7 +63,7 @@ const DefaultErrorMessages: Record<number, string> = {
     431: "Request Header Fields Too Large",
     451: "Unavailable For Legal Reasons",
 
-    // Server Error Responses
+    // Server error responses
     500: "Internal Server Error",
     501: "Not Implemented",
     502: "Bad Gateway",
@@ -77,12 +77,17 @@ const DefaultErrorMessages: Record<number, string> = {
     510: "Not Extended",
     511: "Network Authentication Required",
 
-    // Application Errors
+    // Application errors
     1000: "Assertion Failed",
     1001: "Invalid Timestamp",
     1052: "Shadow Detected",
 
-    // Database Errors
+    // Automod errors
+    1100: "Automod Error",
+    1101: "Automod Normalization Failed",
+    1102: "Automod Filter Conflict",
+
+    // Database errors
     2000: "Database Error",
     2001: "Database Connection Failed",
     2002: "Database Connection Timeout",
@@ -149,13 +154,13 @@ const DefaultErrorMessages: Record<number, string> = {
  * }
  * 
  * @codes
- * Informational Responses
+ * Informational responses
  * - 100: Continue
  * - 101: Switching Protocols
  * - 102: Processing
  * - 103: Early Hints
 
- * Successful Responses
+ * Successful responses
  * - 200: OK
  * - 201: Created
  * - 202: Accepted
@@ -167,7 +172,7 @@ const DefaultErrorMessages: Record<number, string> = {
  * - 208: Already Reported
  * - 226: IM Used
 
- * Redirection Responses
+ * Redirection responses
  * - 300: Multiple Choices
  * - 301: Moved Permanently
  * - 302: Found
@@ -177,7 +182,7 @@ const DefaultErrorMessages: Record<number, string> = {
  * - 307: Temporary Redirect
  * - 308: Permanent Redirect
 
- * Client Error Responses
+ * Client error responses
  * - 400: Bad Request
  * - 401: Unauthorized
  * - 402: Payment Required
@@ -208,7 +213,7 @@ const DefaultErrorMessages: Record<number, string> = {
  * - 431: Request Header Fields Too Large
  * - 451: Unavailable For Legal Reasons
 
- * Server Error Responses
+ * Server error responses
  * - 500: Internal Server Error
  * - 501: Not Implemented
  * - 502: Bad Gateway
@@ -222,12 +227,17 @@ const DefaultErrorMessages: Record<number, string> = {
  * - 510: Not Extended
  * - 511: Network Authentication Required
 
- * Application Errors
+ * Application errors
  * - 1000: Assertion Failed
  * - 1001: Invalid Timestamp
  * - 1052: Shadow Detected
 
- * Database Errors
+ * Automod errors
+ * - 1100: Automod Error
+ * - 1101: Automod Normalization Failed
+ * - 1102: Automod Filter Conflict
+
+ * Database errors
  * - 2000: Database Error
  * - 2001: Database Connection Failed
  * - 2002: Database Connection Timeout

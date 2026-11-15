@@ -1,4 +1,10 @@
-import { Duration } from "../../types/duration.type.js";
+type Time =
+    | "s"
+    | "m"
+    | "h"
+    | "d"
+
+export type Duration = `${number}${Time}`;
 
 /**
  * Converts a duration string into milliseconds.

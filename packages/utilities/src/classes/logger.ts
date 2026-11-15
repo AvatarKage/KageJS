@@ -118,7 +118,7 @@ export const scopes = {
     memory: "",
     cpu: "",
     disk: "󰋊",
-    fs: "󱥾",
+    fs: "",
     upload: "󰕒",
     download: "󰇚",
     app: "",
@@ -154,7 +154,8 @@ export const scopes = {
     webhook: "󰘯",
     discord: "",
     date: "",
-    paypal: ""
+    paypal: "",
+    automod: ""
 } as const;
 
 export type LoggerScopeName = keyof typeof scopes;
