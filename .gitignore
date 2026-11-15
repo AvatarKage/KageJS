@@ -5,6 +5,7 @@ ssl/*
 logs
 _generated
 dist
+.old
 
 # Files
 !.vscode/extensions.json
