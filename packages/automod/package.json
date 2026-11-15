@@ -1,0 +1,51 @@
+{
+  "name": "@kagejs/automod",
+  "version": "2.0.0",
+  "description": "A highly resilient auto-moderation module.",
+  "keywords": [
+    "kagejs",
+    "typescript",
+    "javascript",
+    "automod",
+    "automoderation",
+    "moderation",
+    "moderator",
+    "moderation-tools",
+    "security",
+    "safety",
+    "content-filter",
+    "content-moderation",
+    "profanity-filter",
+    "spam-detection",
+    "obfuscation",
+    "regex",
+    "filtering"
+  ],
+  "author": "AvatarKage",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AvatarKage/KageJS.git"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "sync": "tsx ../../dev/syncConfig.ts",
+    "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of KageJS. Copyright (c) 2026 AvatarKage. Released under the MIT license. */\" --outdir=dist --allow-overwrite"
+  },
+  "dependencies": {
+    "@kagejs/utilities": "2.6.1"
+  },
+  "devDependencies": {}
+}
