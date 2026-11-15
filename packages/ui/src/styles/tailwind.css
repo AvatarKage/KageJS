@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=Rethink+Sans:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @source "../";
@@ -14,12 +15,17 @@
 @source inline("hover:bg-{neutral,primary,secondary,accent,info,success,warning,error}");
 @source inline("hover:bg-{neutral,primary,secondary,accent,info,success,warning,error}/{10,20}");
 @source inline("hover:text-{neutral,primary,secondary,accent,info,success,warning,error}-content");
+@source inline("font-display");
 
 @theme {
-    --color-base-100: #090b16;
-    --color-base-200: #111527;
-    --color-base-300: #1d233b;
-    --color-base-content: #eef2ff;
+    --font-sans: "Rethink Sans", sans-serif;
+    --font-display: "Archivo Black", sans-serif;
+    --font-mono: monospace;
+    
+    --color-base-100: #080808;
+    --color-base-200: #111111;
+    --color-base-300: #222222;
+    --color-base-content: #eaeaea;
 
     --color-primary: #00d4ff;
     --color-primary-content: #00151c;
@@ -36,8 +42,8 @@
     --color-info: #60a5fa;
     --color-info-content: #07152e;
 
-    --color-success: #34f5a3;
-    --color-success-content: #052016;
+    --color-success: #12a10d;
+    --color-success-content: #ffffff;
 
     --color-warning: #ffca57;
     --color-warning-content: #261800;
@@ -55,4 +61,32 @@
     --border: 1px;
     --depth: 0;
     --noise: 0;
+
+    --color-red: HEX HERE FOR ALL COLORS THEN REVERIFY ALL WORKS
+    --color-gold/silver/bronze/platimum/etc
+}
+
+:root {
+    font-family: var(--font-sans);
+}
+
+.discord-spoiler {
+    background: currentColor;
+    color: var(--color-base-300);
+    border-radius: 3px;
+    padding: 0 3px;
+    cursor: pointer;
+    transition: color 150ms ease, background 150ms ease;
+    user-select: none;
+}
+
+.discord-spoiler:hover {
+    background: #333333;
+    color: #333333;
+}
+
+.discord-spoiler.revealed {
+    background: color-mix(in srgb, currentColor 15%, transparent);
+    color: inherit;
+    user-select: text;
 }

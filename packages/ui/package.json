@@ -1,16 +1,15 @@
 {
-  "name": "KageJS Utilities",
-  "version": "2.0",
-  "description": "Includes various common extensions and helpers for the KageJS ecosystem.",
+  "name": "@kagejs/ui",
+  "version": "2.0.0",
+  "description": "A React component library using Tailwind CSS.",
   "keywords": [
     "kagejs",
-    "utilities",
-    "utils",
-    "tools",
-    "helpers",
-    "extensions",
     "typescript",
-    "javascript"
+    "javascript",
+    "react",
+    "components",
+    "tailwind",
+    "elements"
   ],
   "author": "AvatarKage",
   "license": "MIT",
