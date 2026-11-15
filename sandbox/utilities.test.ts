@@ -23,7 +23,8 @@ import {
 
     regexes,
 
-    type LoggerInstance
+    type LoggerInstance,
+    type Duration
 } from "../packages/utilities/index.js";
 
 type Color = "red" | "green" | "blue";
