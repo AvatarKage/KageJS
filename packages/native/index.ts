@@ -1,10 +1,11 @@
-import "./src/extensions/json.js";
-import "./src/extensions/number.js";
+import File from "./src/classes/file.js";
+import Folder from "./src/classes/folder.js";
 
-import parseDuration from "./src/helpers/parseDuration.js";
-import { satisfiesAll } from "./src/helpers/satisfiesAll.js";
+import resolve from "./src/helpers/resolve.js";
 
 export {
-    parseDuration,
-    satisfiesAll
+    File,
+    Folder,
+
+    resolve
 };
