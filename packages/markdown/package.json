@@ -1,0 +1,42 @@
+{
+  "name": "@kagejs/ui",
+  "version": "2.0.0",
+  "description": "A React component library using Tailwind CSS.",
+  "keywords": [
+    "kagejs",
+    "typescript",
+    "javascript",
+    "react",
+    "components",
+    "tailwind",
+    "elements"
+  ],
+  "author": "AvatarKage",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AvatarKage/KageJS.git"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./styles.css": "./styles/tailwind.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "sync": "tsx ../../dev/syncConfig.ts",
+    "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of KageJS. Copyright (c) 2026 AvatarKage. Released under the MIT license. */\" --outdir=dist --allow-overwrite"
+  },
+  "dependencies": {
+    "@kagejs/utilities": "2.6.1"
+  },
+  "devDependencies": {}
+}
