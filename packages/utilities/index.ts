@@ -13,7 +13,7 @@ import Timestamp from "./src/classes/timestamp.js";
 import assert from "./src/functions/assert.js";
 import convertNumbers from "./src/functions/convertNumbers.js";
 
-import parseDuration from "./src/helpers/parseDuration.js";
+import parseDuration, { type Duration } from "./src/helpers/parseDuration.js";
 import { satisfiesAll } from "./src/helpers/satisfiesAll.js";
 import slugify from "./src/helpers/slugify.js";
 import pluralize from "./src/helpers/pluralize.js";
@@ -39,7 +39,10 @@ export {
     pluralize,
     possessivize,
 
-    regexes,
+    regexes
+};
 
-    LoggerInstance
+export type {
+    LoggerInstance,
+    Duration 
 };
