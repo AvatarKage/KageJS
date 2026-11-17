@@ -3,6 +3,8 @@ import cliProgress from "cli-progress";
 import chalk from "chalk";
 import { Stopwatch } from "@sapphire/stopwatch";
 import { config } from "../../app.config.js";
+import { readFileSync, existsSync } from "node:fs";
+import { resolve } from "node:path";
 
 const sw = new Stopwatch();
 
@@ -12,10 +14,29 @@ type Step = {
     args?: string[];
 };
 
+const packageJsonPath = resolve(process.cwd(), "package.json");
+
+const packageJson = existsSync(packageJsonPath)
+    ? JSON.parse(readFileSync(packageJsonPath, "utf-8"))
+    : {};
+
+const hasCssBuild = Boolean(packageJson.scripts?.["build:css"]);
+
 const steps: Step[] = [
     { name: "Preparing workspace...", cmd: "npm", args: ["run", "clean"] },
     { name: "Syncing config...", cmd: "npm", args: ["run", "sync"] },
     { name: "Compiling Typescript...", cmd: "tsc" },
+
+    ...(hasCssBuild
+        ? [
+            {
+                name: "Compiling Tailwind CSS...",
+                cmd: "npm",
+                args: ["run", "build:css"],
+            },
+        ]
+        : []),
+
     { name: "Minifying code...", cmd: "npm", args: ["run", "minify"] }
 ];
 
