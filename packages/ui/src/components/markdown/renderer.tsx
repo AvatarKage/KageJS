@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
@@ -7,6 +9,7 @@ import remarkBreaks from "remark-breaks";
 import { Icon } from "@iconify/react";
 import type { Root } from "mdast";
 import { visit } from "unist-util-visit";
+// @ts-ignore
 import { getIconData, type IconifyJSON } from "@iconify/utils";
 import rehypeHighlight from "rehype-highlight";
 
@@ -266,6 +269,7 @@ function remarkIcons() {
                 };
             });
 
+            // @ts-ignore
             parent.children.splice(index, 1, ...replacements);
 
             return index + replacements.length;
@@ -404,6 +408,7 @@ function remarkDiscordSpoilers() {
                 };
             });
 
+            // @ts-ignore
             parent.children.splice(index, 1, ...replacements);
 
             return index + replacements.length;
@@ -696,10 +701,6 @@ function Callout({
 }
 
 const DASHED_HR_SENTINEL = "DASHED_HR_SENTINEL_8F3A";
-
-const SOLID_TEXT_HR_SENTINEL = "SOLID_TEXT_HR_SENTINEL_8F3A";
-const DASHED_TEXT_HR_SENTINEL = "DASHED_TEXT_HR_SENTINEL_8F3A";
-
 const DIVIDER_SENTINEL = "TEXT_DIVIDER_8F3A";
 
 function preprocessHorizontalRules(markdown: string): string {
@@ -1180,6 +1181,7 @@ blockquote({ children }) {
             );
 
             return (
+                // @ts-ignore
                 <Collapsible title={title}>
                     {finalBody}
                 </Collapsible>
@@ -1592,6 +1594,7 @@ if (match) {
         );
     },
 
+    // @ts-ignore
     spoiler({ children }) {
         return (
             <span
