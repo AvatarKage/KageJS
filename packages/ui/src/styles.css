@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=Rethink+Sans:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
-@source "../";
+@source "./";
 
 @source inline("bg-transparent");
 @source inline("border");
@@ -62,8 +62,29 @@
     --depth: 0;
     --noise: 0;
 
-    --color-red: HEX HERE FOR ALL COLORS THEN REVERIFY ALL WORKS
-    --color-gold/silver/bronze/platimum/etc
+
+    /* WIP */
+    --color-red: #ef4444;
+    --color-orange: #f97316;
+    --color-yellow: #eab308;
+    --color-green: #22c55e;
+    --color-blue: #3b82f6;
+    --color-purple: #a855f7;
+    --color-pink: #ec4899;
+    --color-cyan: #06b6d4;
+    --color-teal: #14b8a6;
+    --color-indigo: #6366f1;
+    --color-violet: #8b5cf6;
+    --color-rose: #f43f5e;
+    --color-emerald: #10b981;
+    --color-lime: #84cc16;
+    --color-amber: #f59e0b;
+
+    --color-gold: #ffd700;
+    --color-silver: #c0c0c0;
+    --color-bronze: #cd7f32;
+    --color-platinum: #e5e4e2;
+    --color-diamond: #b9f2ff;
 }
 
 :root {

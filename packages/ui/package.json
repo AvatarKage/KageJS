@@ -20,17 +20,19 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
+  "style": "./dist/styles.css",
   "exports": {
     ".": {
       "default": "./dist/index.js",
       "types": "./dist/types/index.d.ts"
     },
-    "./styles.css": "./styles/tailwind.css"
+    "./styles.css": "./dist/styles.css"
   },
   "files": [
     "dist"
   ],
   "scripts": {
+    "build:css": "tailwindcss -i ./src/styles.css -o ./dist/src/styles.css --minify",
     "clean": "rimraf dist",
     "sync": "tsx ../../dev/syncConfig.ts",
     "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of KageJS. Copyright (c) 2026 AvatarKage. Released under the MIT license. */\" --outdir=dist --allow-overwrite"
@@ -38,5 +40,8 @@
   "dependencies": {
     "@kagejs/utilities": "2.6.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "tailwindcss": "^4.0.0"
+  }
 }

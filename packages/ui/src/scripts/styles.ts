@@ -171,4 +171,3 @@ export const textPositionStyles: Record<string, string> = {
     center: "text-center",
     right: "text-right"
 };
-
