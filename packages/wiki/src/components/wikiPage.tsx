@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 
+import { MarkdownRenderer } from "@kagejs/ui";
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import MarkdownRenderer from "../../../ui/src/components/markdown/renderer.js";
 import { WikiPageType } from "../../types/wiki.type.js";
 
 export default function WikiPage({
@@ -98,7 +99,6 @@ export default function WikiPage({
 
                         <MarkdownRenderer
                             content={content}
-                            currentSlug={page.slug}
                             className="wiki-article"
                         />
                     </article>
