@@ -25,7 +25,7 @@
       "default": "./dist/index.js",
       "types": "./dist/types/index.d.ts"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/src/styles.css"
   },
   "files": [
     "dist"
