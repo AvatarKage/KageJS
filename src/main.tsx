@@ -7,7 +7,9 @@ import {
     Route,
 } from "react-router-dom";
 
-import "../packages/ui/src/styles/tailwind.css";
+import "@kagejs/ui/styles.css";
+import "@kagejs/wiki/styles.css";
+import "./styles/tailwind.css";
 import "./styles/app.css";
 
 import WikiEditor from "./pages/wikiEditor.js";
