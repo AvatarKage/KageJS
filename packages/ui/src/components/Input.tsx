@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
+
 import { regexes } from "@kagejs/utilities";
 
 import type {
