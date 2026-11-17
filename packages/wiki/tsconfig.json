@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
-    "target": "esnext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ESNext",
     "strict": true,
     "jsx": "react-jsx",
     "sourceMap": false,
     "declaration": true,
     "declarationMap": false,
-    "declarationDir": "dist/src/types",
+    "declarationDir": "dist/types",
     "isolatedModules": true,
     "skipLibCheck": true,
     "rootDir": ".",
     "outDir": "dist",
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["vite/client"]
   }
 }
